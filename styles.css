@@ -424,16 +424,112 @@ button {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
   margin-top: 24px;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  color: var(--ink-2);
 }
 
-.hero-socials a:hover,
-.hero-socials button:hover {
+.social-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 9px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink-2);
+  transition: color var(--transition), border-color var(--transition), background-color var(--transition), transform var(--transition);
+}
+
+.social-chip svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  flex-shrink: 0;
   color: var(--violet);
+}
+
+.social-chip:hover {
+  color: var(--ink);
+  border-color: var(--violet);
+  background: var(--violet-soft);
+  transform: translateY(-1px);
+}
+
+/* Pastel Brand Variants for Home Hero Social Chips */
+.social-chip--github {
+  background: rgba(148, 163, 184, 0.14);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: #E2E8F0;
+}
+.social-chip--github svg { color: #CBD5E1; }
+.social-chip--github:hover {
+  background: rgba(148, 163, 184, 0.22);
+  border-color: rgba(148, 163, 184, 0.48);
+  color: #FFFFFF;
+}
+
+.social-chip--linkedin {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(96, 165, 250, 0.32);
+  color: #BFDBFE;
+}
+.social-chip--linkedin svg { color: #60A5FA; }
+.social-chip--linkedin:hover {
+  background: rgba(59, 130, 246, 0.22);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: #EFF6FF;
+}
+
+.social-chip--mail {
+  background: rgba(244, 63, 94, 0.14);
+  border-color: rgba(251, 113, 133, 0.32);
+  color: #FECDD3;
+}
+.social-chip--mail svg { color: #FB7185; }
+.social-chip--mail:hover {
+  background: rgba(244, 63, 94, 0.22);
+  border-color: rgba(251, 113, 133, 0.5);
+  color: #FFF1F2;
+}
+
+html.light .social-chip--github {
+  background: #F1F2F6;
+  border-color: #D4D7E2;
+  color: #2B2E3B;
+}
+html.light .social-chip--github svg { color: #24292F; }
+html.light .social-chip--github:hover {
+  background: #E6E8F0;
+  border-color: #B6BBCB;
+  color: #14171F;
+}
+
+html.light .social-chip--linkedin {
+  background: #EEF4FC;
+  border-color: #C3D9F7;
+  color: #1B4E8A;
+}
+html.light .social-chip--linkedin svg { color: #0A66C2; }
+html.light .social-chip--linkedin:hover {
+  background: #E1ECFA;
+  border-color: #9BC2F2;
+  color: #0F3A6B;
+}
+
+html.light .social-chip--mail {
+  background: #FDF0F1;
+  border-color: #F4C7CC;
+  color: #9E2A35;
+}
+html.light .social-chip--mail svg { color: #C93B48; }
+html.light .social-chip--mail:hover {
+  background: #FAE3E5;
+  border-color: #EAA7AF;
+  color: #7D1D27;
 }
 
 .status-panel {
@@ -478,12 +574,12 @@ button {
 }
 
 .logos-head {
-  font-family: var(--mono);
-  font-size: 11.5px;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 20px;
 }
 
 .logos-grid {
@@ -1042,8 +1138,13 @@ html.light .paper-sheet {
 }
 
 .social-chip--compact {
-  padding: 5px 11px;
+  padding: 6px 11px;
   font-size: 11.5px;
+}
+
+.social-chip--compact svg {
+  width: 14px;
+  height: 14px;
 }
 
 .toast {
