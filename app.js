@@ -44,67 +44,93 @@ const ICONS = {
 const BRANDS = {
   ens: {
     name: 'ENS Paris-Saclay',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Logo_ENS_Paris-Saclay.svg/320px-Logo_ENS_Paris-Saclay.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/fr/f/fb/LOGOS_ENS-PARIS-SACLAY_UPSAY_2.png',
+    fallback: null,
     mono: 'ENS',
   },
   upsaclay: {
     name: 'Université Paris-Saclay',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Logo_cartouche_Universit%C3%A9_Paris-Saclay.png/320px-Logo_cartouche_Universit%C3%A9_Paris-Saclay.png',
+    src: 'https://www.universite-paris-saclay.fr/sites/default/files/media/2019-12/logo-ups.svg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universit%C3%A9_Paris-Saclay_2019-12.svg',
     mono: 'UPS',
   },
   iogs: {
     name: "Institut d'Optique (IOGS)",
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Institut_d%27Optique_Graduate_School.svg/320px-Logo_Institut_d%27Optique_Graduate_School.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Logo_IOGS_UPS.svg',
+    fallback: null,
     mono: 'IOGS',
   },
   uqtr: {
     name: 'UQTR',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_UQTR.svg/320px-Logo_UQTR.svg.png',
+    src: 'https://www.uqtr.ca/u20-img/logos/logo-uqtr-entete.png',
+    fallback: null,
     mono: 'UQTR',
   },
   valeo: {
     name: 'VALEO',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Valeo_Logo.svg/320px-Valeo_Logo.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Valeo_Logo.svg',
+    fallback: null,
     mono: 'VALEO',
   },
   aurea: {
     name: 'Aurea Technology',
     src: 'https://www.aureatechnology.com/wp-content/uploads/2021/10/aurea-technology-logo.svg',
+    fallback: 'https://www.meetoptics.com/docs/supplier-logos/aurea-technology.svg',
     mono: 'AUREA',
   },
   inria: {
     name: 'Inria',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Inr_logo_rouge.svg/320px-Inr_logo_rouge.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Inr_logo_rouge.svg',
+    fallback: null,
     mono: 'INRIA',
   },
   vitaim: {
     name: 'VITAIM',
     src: 'assets/logos/vitaim.png',
+    fallback: null,
     mono: 'VITAIM',
   },
   saintlouis: {
     name: 'Lycée Saint-Louis',
     src: 'assets/logos/saint-louis.png',
+    fallback: null,
     mono: 'SL',
   },
   parcdesloges: {
     name: 'Lycée du Parc des Loges',
     src: 'assets/logos/parc-des-loges.png',
+    fallback: null,
     mono: 'LPL',
   },
 };
+
+function handleLogoError(img) {
+  const fb = img.getAttribute('data-fallback');
+  if (fb && !img.dataset.triedFallback) {
+    img.dataset.triedFallback = '1';
+    img.src = fb;
+    return;
+  }
+  img.style.display = 'none';
+  if (img.nextElementSibling) {
+    img.nextElementSibling.style.display = 'inline-block';
+  }
+}
 
 function renderLogo(brandKey, size = 'md') {
   const b = BRANDS[brandKey];
   if (!b) return '';
   const sizeClass = size === 'sm' ? 'logo-frame--sm' : 'logo-frame--md';
+  const fbAttr = b.fallback ? `data-fallback="${b.fallback}"` : '';
   return `
     <div class="logo-frame ${sizeClass}" title="${b.name}">
       <img
         src="${b.src}"
+        ${fbAttr}
         alt="${b.name}"
         loading="lazy"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+        referrerpolicy="no-referrer"
+        onerror="handleLogoError(this)"
       />
       <span class="logo-mono" style="display:none;">${b.mono}</span>
     </div>
@@ -864,7 +890,7 @@ function renderAboutPage() {
 function renderPaperPreview(preview) {
   if (!preview) return '';
   const instLogoHtml = preview.instLogo
-    ? `<img src="${preview.instLogo}" alt="${preview.instAlt}" class="paper-inst-logo" loading="lazy" onerror="this.style.display='none';" />`
+    ? `<img src="${preview.instLogo}" alt="${preview.instAlt}" class="paper-inst-logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';" />`
     : '';
 
   const figureHtml = preview.figureImg
