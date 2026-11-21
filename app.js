@@ -26,7 +26,9 @@ function revealEmailAddress() {
 
 const ICONS = {
   paper: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-  github: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 0 0-2.85 17.54c.45.08.62-.2.62-.43v-1.52c-2.51.55-3.04-1.21-3.04-1.21-.41-1.04-1-1.32-1-1.32-.82-.56.06-.55.06-.55.9.06 1.38.93 1.38.93.8 1.38 2.11.98 2.63.75.08-.58.31-.98.57-1.2-2-.23-4.11-1-4.11-4.46 0-.99.35-1.79.93-2.42-.09-.23-.4-1.15.09-2.39 0 0 .76-.24 2.48.92a8.6 8.6 0 0 1 4.52 0c1.72-1.16 2.48-.92 2.48-.92.49 1.24.18 2.16.09 2.39.58.63.93 1.43.93 2.42 0 3.47-2.11 4.23-4.12 4.45.32.28.61.83.61 1.67v2.48c0 .24.16.52.62.43A9 9 0 0 0 12 3Z"/></svg>`,
+  linkedin: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.34 18.34H5.67V9.76h2.67v8.58ZM7 8.58a1.55 1.55 0 1 1 0-3.1 1.55 1.55 0 0 1 0 3.1Zm11.34 9.76h-2.67v-4.18c0-1-.02-2.28-1.39-2.28-1.39 0-1.6 1.09-1.6 2.21v4.25h-2.67V9.76h2.56v1.17h.04c.36-.68 1.23-1.39 2.53-1.39 2.7 0 3.2 1.78 3.2 4.09v4.71Z"/></svg>`,
+  mail: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>`,
   download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
   external: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
   sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
@@ -42,67 +44,93 @@ const ICONS = {
 const BRANDS = {
   ens: {
     name: 'ENS Paris-Saclay',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Logo_ENS_Paris-Saclay.svg/320px-Logo_ENS_Paris-Saclay.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/fr/f/fb/LOGOS_ENS-PARIS-SACLAY_UPSAY_2.png',
+    fallback: null,
     mono: 'ENS',
   },
   upsaclay: {
     name: 'Université Paris-Saclay',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Logo_cartouche_Universit%C3%A9_Paris-Saclay.png/320px-Logo_cartouche_Universit%C3%A9_Paris-Saclay.png',
+    src: 'https://www.universite-paris-saclay.fr/sites/default/files/media/2019-12/logo-ups.svg',
+    fallback: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Logo_Universit%C3%A9_Paris-Saclay_2019-12.svg',
     mono: 'UPS',
   },
   iogs: {
     name: "Institut d'Optique (IOGS)",
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Institut_d%27Optique_Graduate_School.svg/320px-Logo_Institut_d%27Optique_Graduate_School.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Logo_IOGS_UPS.svg',
+    fallback: null,
     mono: 'IOGS',
   },
   uqtr: {
     name: 'UQTR',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_UQTR.svg/320px-Logo_UQTR.svg.png',
+    src: 'https://www.uqtr.ca/u20-img/logos/logo-uqtr-entete.png',
+    fallback: null,
     mono: 'UQTR',
   },
   valeo: {
     name: 'VALEO',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Valeo_Logo.svg/320px-Valeo_Logo.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/2/2b/Valeo_Logo.svg',
+    fallback: null,
     mono: 'VALEO',
   },
   aurea: {
     name: 'Aurea Technology',
     src: 'https://www.aureatechnology.com/wp-content/uploads/2021/10/aurea-technology-logo.svg',
+    fallback: 'https://www.meetoptics.com/docs/supplier-logos/aurea-technology.svg',
     mono: 'AUREA',
   },
   inria: {
     name: 'Inria',
-    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Inr_logo_rouge.svg/320px-Inr_logo_rouge.svg.png',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Inr_logo_rouge.svg',
+    fallback: null,
     mono: 'INRIA',
   },
   vitaim: {
     name: 'VITAIM',
     src: 'assets/logos/vitaim.png',
+    fallback: null,
     mono: 'VITAIM',
   },
   saintlouis: {
     name: 'Lycée Saint-Louis',
     src: 'assets/logos/saint-louis.png',
+    fallback: null,
     mono: 'SL',
   },
   parcdesloges: {
     name: 'Lycée du Parc des Loges',
     src: 'assets/logos/parc-des-loges.png',
+    fallback: null,
     mono: 'LPL',
   },
 };
+
+function handleLogoError(img) {
+  const fb = img.getAttribute('data-fallback');
+  if (fb && !img.dataset.triedFallback) {
+    img.dataset.triedFallback = '1';
+    img.src = fb;
+    return;
+  }
+  img.style.display = 'none';
+  if (img.nextElementSibling) {
+    img.nextElementSibling.style.display = 'inline-block';
+  }
+}
 
 function renderLogo(brandKey, size = 'md') {
   const b = BRANDS[brandKey];
   if (!b) return '';
   const sizeClass = size === 'sm' ? 'logo-frame--sm' : 'logo-frame--md';
+  const fbAttr = b.fallback ? `data-fallback="${b.fallback}"` : '';
   return `
     <div class="logo-frame ${sizeClass}" title="${b.name}">
       <img
         src="${b.src}"
+        ${fbAttr}
         alt="${b.name}"
         loading="lazy"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+        referrerpolicy="no-referrer"
+        onerror="handleLogoError(this)"
       />
       <span class="logo-mono" style="display:none;">${b.mono}</span>
     </div>
@@ -733,11 +761,18 @@ function renderHomePage() {
             <a href="#internship" onclick="navigateTo('internship', event)" class="btn btn-outline">${h.ctaInternship}</a>
           </div>
           <div class="hero-socials">
-            <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer">github.com/Squenger ↗</a>
-            <span>·</span>
-            <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-            <span>·</span>
-            <button type="button" onclick="openObfuscatedMail()">aimine28 [at] gmail [dot] com</button>
+            <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="social-chip social-chip--github">
+              ${ICONS.github}
+              <span>GitHub · Squenger</span>
+            </a>
+            <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="social-chip social-chip--linkedin">
+              ${ICONS.linkedin}
+              <span>LinkedIn</span>
+            </a>
+            <button type="button" onclick="openObfuscatedMail()" class="social-chip social-chip--mail">
+              ${ICONS.mail}
+              <span>aimine28 [at] gmail [dot] com</span>
+            </button>
           </div>
         </div>
 
@@ -855,7 +890,7 @@ function renderAboutPage() {
 function renderPaperPreview(preview) {
   if (!preview) return '';
   const instLogoHtml = preview.instLogo
-    ? `<img src="${preview.instLogo}" alt="${preview.instAlt}" class="paper-inst-logo" loading="lazy" onerror="this.style.display='none';" />`
+    ? `<img src="${preview.instLogo}" alt="${preview.instAlt}" class="paper-inst-logo" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';" />`
     : '';
 
   const figureHtml = preview.figureImg
@@ -1016,12 +1051,12 @@ function renderContactPage() {
 
   const emailBtns = isEmailRevealed
     ? `
-      <button type="button" onclick="openObfuscatedMail()" class="chip-link chip-link--paper">${c.mailBtn}</button>
-      <button type="button" onclick="copyEmail()" class="chip-link">${c.copyBtn}</button>
+      <button type="button" onclick="openObfuscatedMail()" class="chip-link chip-link--paper">${ICONS.mail}<span>${c.mailBtn}</span></button>
+      <button type="button" onclick="copyEmail()" class="chip-link"><span>${c.copyBtn}</span></button>
     `
     : `
-      <button type="button" onclick="revealEmailAddress()" class="chip-link chip-link--paper">${c.revealBtn}</button>
-      <button type="button" onclick="copyEmail()" class="chip-link">${c.copyBtn}</button>
+      <button type="button" onclick="revealEmailAddress()" class="chip-link chip-link--paper">${ICONS.mail}<span>${c.revealBtn}</span></button>
+      <button type="button" onclick="copyEmail()" class="chip-link"><span>${c.copyBtn}</span></button>
     `;
 
   return `
@@ -1060,7 +1095,7 @@ function renderContactPage() {
           </div>
           <div class="btn-row">
             <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="chip-link chip-link--paper">
-              ${ICONS.external}<span>${c.openProfile}</span>
+              ${ICONS.linkedin}<span>${c.openProfile}</span>
             </a>
           </div>
         </div>
