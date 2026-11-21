@@ -1,7 +1,7 @@
 /**
- * Aimine Meddeb — Personal Portfolio
- * Smooth-scroll sections, scroll-spy pill navbar, EN/FR localization,
- * dark/light toggle, project filters, and embedded Internship CV viewer.
+ * Aimine Meddeb — Personal Research Portfolio (Option 1: Obsidian Research)
+ * Multi-page hash router, official institutional logos, paper previews,
+ * EN/FR localization, dark/light theme, and embedded Internship CV viewer.
  */
 
 const MAIL_SEGMENTS = ['aimine28', 'gmail', 'com'];
@@ -21,135 +21,210 @@ function openObfuscatedMail() {
 
 function revealEmailAddress() {
   isEmailRevealed = true;
-  renderContact();
+  renderApp();
 }
 
 const ICONS = {
-  github: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
   paper: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
-  calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-  pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
-  cpu: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>`,
-  briefcase: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
+  github: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>`,
   download: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
   external: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`,
   sun: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`,
   moon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
 };
 
+/**
+ * Institutional & Company Logos
+ * Verified official URLs load immediately; local overrides in assets/logos/ are
+ * supported for organizations without public Wikimedia logos, with automatic
+ * crisp monogram fallback so images never break.
+ */
+const BRANDS = {
+  ens: {
+    name: 'ENS Paris-Saclay',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Logo_ENS_Paris-Saclay.svg/320px-Logo_ENS_Paris-Saclay.svg.png',
+    mono: 'ENS',
+  },
+  upsaclay: {
+    name: 'Université Paris-Saclay',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Logo_cartouche_Universit%C3%A9_Paris-Saclay.png/320px-Logo_cartouche_Universit%C3%A9_Paris-Saclay.png',
+    mono: 'UPS',
+  },
+  iogs: {
+    name: "Institut d'Optique (IOGS)",
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Institut_d%27Optique_Graduate_School.svg/320px-Logo_Institut_d%27Optique_Graduate_School.svg.png',
+    mono: 'IOGS',
+  },
+  uqtr: {
+    name: 'UQTR',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_UQTR.svg/320px-Logo_UQTR.svg.png',
+    mono: 'UQTR',
+  },
+  valeo: {
+    name: 'VALEO',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Valeo_Logo.svg/320px-Valeo_Logo.svg.png',
+    mono: 'VALEO',
+  },
+  aurea: {
+    name: 'Aurea Technology',
+    src: 'https://www.aureatechnology.com/wp-content/uploads/2021/10/aurea-technology-logo.svg',
+    mono: 'AUREA',
+  },
+  inria: {
+    name: 'Inria',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Inr_logo_rouge.svg/320px-Inr_logo_rouge.svg.png',
+    mono: 'INRIA',
+  },
+  vitaim: {
+    name: 'VITAIM',
+    src: 'assets/logos/vitaim.png',
+    mono: 'VITAIM',
+  },
+  saintlouis: {
+    name: 'Lycée Saint-Louis',
+    src: 'assets/logos/saint-louis.png',
+    mono: 'SL',
+  },
+  parcdesloges: {
+    name: 'Lycée du Parc des Loges',
+    src: 'assets/logos/parc-des-loges.png',
+    mono: 'LPL',
+  },
+};
+
+function renderLogo(brandKey, size = 'md') {
+  const b = BRANDS[brandKey];
+  if (!b) return '';
+  const sizeClass = size === 'sm' ? 'logo-frame--sm' : 'logo-frame--md';
+  return `
+    <div class="logo-frame ${sizeClass}" title="${b.name}">
+      <img
+        src="${b.src}"
+        alt="${b.name}"
+        loading="lazy"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+      />
+      <span class="logo-mono" style="display:none;">${b.mono}</span>
+    </div>
+  `;
+}
+
 const DATA = {
   en: {
     nav: {
       home: 'Home',
-      about: 'About',
+      about: 'Background',
       projects: 'Projects',
-      internship: 'Internship',
+      internship: 'Internship & CV',
       contact: 'Contact',
     },
-    hero: {
-      greeting: "Hi, I'm",
-      name: 'Aimine Meddeb',
-      tagline:
-        'Master MVA student at ENS Paris-Saclay & IOGS Engineer, working on Computer Vision, Multimodal Vision Transformers, Robotics, and LLMs.',
-      ctaWork: 'View My Work',
-      ctaInternship: 'Research Internship',
-      scrollCue: 'Scroll to explore',
-      loc: 'Paris-Saclay, France',
-      facts: [
-        { label: 'Program', value: 'Master 2 MVA — ENS Paris-Saclay' },
-        { label: 'Engineering', value: "Institut d'Optique (IOGS) · GPA 4/4" },
-        { label: 'Research Focus', value: 'Computer Vision · Multimodal ViTs · Robotics' },
-        { label: 'Availability', value: '4–6 month research internship from April' },
+    home: {
+      kicker: 'Master 2 MVA · ENS Paris-Saclay · IOGS',
+      firstName: 'Aimine',
+      lastName: 'Meddeb',
+      lead:
+        "Final-year student in the Master MVA program at ENS Paris-Saclay and engineering student at Institut d'Optique (IOGS). My research focuses on Computer Vision, Multimodal Vision Transformers, 3D Robotics, and Large Language Models.",
+      ctaProjects: 'Explore Projects →',
+      ctaInternship: 'Internship & CV',
+      status: [
+        { label: 'Target Internship', val: 'Computer Vision Research · Multimodal ViTs / Robotics' },
+        { label: 'Availability', val: '4 to 6 months starting from April' },
+        { label: 'Preferred Locations', val: 'Paris, Zurich, Lausanne, Geneva, Berlin, London, Barcelona' },
+      ],
+      logosHeading: 'Universities & Companies',
+      skillsHeading: 'Core Technical Domains',
+      skills: [
+        { title: 'Machine Learning & AI', text: 'LLMs, MLLMs, Multimodal ViTs, DPO, Generative AI, PyTorch, Scikit-learn' },
+        { title: 'Computer Vision & 3D', text: '3D Point Clouds, Volumetric Reconstruction, Image Registration, OpenCV' },
+        { title: 'Robotics & Optimization', text: 'VLA Policies, Control Systems, Mathematical Modeling, Time Series, LaTeX' },
+        { title: 'Languages', text: 'French (Native), English (TOEIC C1), German (Beginner)' },
       ],
     },
     about: {
-      pill: 'About',
-      title: 'About Me',
-      bio:
-        "Final-year student in the Master MVA program at ENS Paris-Saclay and engineering student at Institut d'Optique (IOGS). My work bridges applied mathematics, 3D computer vision, multimodal learning, and robotic manipulation. I enjoy digging into research papers, reproducing state-of-the-art architectures, and building clean, reliable systems.",
-      skills: [
-        'PyTorch',
-        'Computer Vision',
-        '3D Point Clouds',
-        'Vision-Language-Action (VLA)',
-        'Multimodal LLMs',
-        'Transformers',
-        'DPO',
-        'Volumetric Reconstruction',
-        'OpenCV',
-        'French · English (C1)',
-      ],
-      expHeading: 'Experience',
-      eduHeading: 'Education',
+      kicker: 'Academic & Industrial Path',
+      title: 'Background',
+      sub: 'Research internships in 3D deep learning and photonics, industrial computer vision, and applied mathematics.',
+      expTitle: 'Experience',
+      eduTitle: 'Education',
       experience: [
         {
+          brand: 'uqtr',
           period: 'Mar – Aug 2026',
           role: 'Research Internship',
           org: 'Université du Québec à Trois-Rivières (UQTR)',
           desc:
-            'Near real-time 3D reconstruction via deep learning for micro-CT integration into a 3D printing digital twin, combining cross-modal transformations and generative volumetric synthesis.',
+            'Near real-time 3D reconstruction based on deep learning for micro-CT integration into a 3D printing digital twin. Cross-modal mathematical transformations and generative volumetric synthesis.',
         },
         {
+          brand: 'valeo',
           period: 'Jan – Mar 2026',
           role: 'Industrial Image Correction',
           org: 'VALEO',
           desc:
-            'Automated image registration and centering pipeline (ORB, RANSAC) for industrial quality control of car logos, achieving < 0.5% precision error.',
+            'Computer vision pipeline for automated image registration and centering (ORB, RANSAC) for industrial quality control of car logos, achieving < 0.5% precision error.',
         },
         {
+          brand: 'aurea',
           period: 'May – Aug 2025',
           role: 'Photonics Internship',
           org: 'Aurea Technology',
           desc:
-            'Entangled photon source for satellite quantum communications (ESA TeQuantS) and EDFA system achieving 10 dB amplification.',
+            'Entangled photon source for satellite quantum communications (ESA TeQuantS). Developed an EDFA optical amplification system achieving 10 dB gain.',
         },
         {
+          brand: 'vitaim',
           period: 'Sept 2024 – Jul 2025',
           role: 'Co-founder, Innovation Program',
           org: 'VITAIM',
           desc:
-            'Technical lead for a post-quantum cryptography (PQC) startup. Winner of the Paris-Saclay Entrepreneurship Pitch Competition.',
+            'Technical lead for a startup specializing in post-quantum cryptography (PQC). Winner of the Paris-Saclay Entrepreneurship Pitch Competition.',
         },
         {
+          brand: 'parcdesloges',
           period: 'Sept 2024 – Jun 2025',
           role: 'Oral Examiner (Colleur)',
           org: 'Lycée du Parc des Loges',
-          desc: 'Mathematics oral examiner for engineering preparatory classes (PSI).',
+          desc: 'Mathematics oral examiner for engineering school preparatory classes (PSI).',
         },
       ],
       education: [
         {
+          brand: 'ens',
           period: '2026 – present',
           degree: 'Master MVA',
           org: 'ENS Paris-Saclay',
-          desc: 'Applied Mathematics focusing on Machine Learning, Computer Vision, and AI.',
+          desc: 'Master of Applied Mathematics focusing on Machine Learning, Computer Vision, and AI.',
           courses:
-            'Computer Vision · Deep Learning · Robotics · Foundations of LLMs · Text & Graph Learning · Optimization · Time Series · Computational Statistics',
+            'Courses: Computer Vision · Deep Learning · Robotics · Foundations of LLMs · Advanced Text & Graph Learning · Optimization · Time Series · Computational Statistics',
         },
         {
+          brand: 'upsaclay',
           period: '2024 – 2026',
           degree: 'Master ATSI',
           org: 'Université Paris-Saclay',
-          desc: 'Computer Vision, Deep Learning architectures, and Applied Optimization.',
+          desc: 'Specialized in Computer Vision, Deep Learning architectures, and Applied Optimization.',
           courses: null,
         },
         {
+          brand: 'iogs',
           period: '2023 – 2026',
-          degree: 'Engineering Degree',
+          degree: 'Engineering Degree (Diplôme d’Ingénieur)',
           org: "Institut d'Optique (IOGS)",
           desc: 'Mathematical modeling, Image Processing, Quantum physics. GPA: 4/4.',
           courses: null,
         },
         {
+          brand: 'upsaclay',
           period: '2023 – 2024',
           degree: "Mathematics Bachelor's Degree",
           org: 'Université Paris-Saclay',
-          desc: 'Analysis, algebra, and probability.',
+          desc: 'Analysis, algebra, and probability theory.',
           courses: null,
         },
         {
+          brand: 'saintlouis',
           period: '2021 – 2023',
-          degree: 'CPGE MPSI / MP*',
+          degree: 'Preparatory Class (CPGE MPSI/MP*)',
           org: 'Lycée Saint-Louis, Paris',
           desc: 'Intensive preparatory classes in Mathematics and Computer Science.',
           courses: null,
@@ -157,9 +232,9 @@ const DATA = {
       ],
     },
     projects: {
-      pill: 'Work',
-      title: 'My Projects',
-      subtitle: 'Selected research reproductions and personal projects in robotics, multimodal vision, and generative AI.',
+      kicker: 'Research & Implementations',
+      title: 'Projects & Papers',
+      sub: 'Paper reproductions, benchmarks, and personal implementations in 3D robotics, multimodal vision, and generative modeling.',
       filters: [
         { id: 'all', label: 'All' },
         { id: 'robotics', label: 'Robotics & 3D' },
@@ -168,59 +243,73 @@ const DATA = {
       ],
       items: [
         {
-          featured: true,
           year: '2026',
           category: 'robotics',
-          badge: 'Featured · Robotics & 3D',
-          venue: 'Based on Shizhe Chen, Paul Pacaud & Cordelia Schmid · Inria / ENS · RSS 2026',
+          catLabel: 'Robotics & 3D',
           title: 'PointACT — 3D-Aware Vision-Language-Action Policy',
           desc:
-            'Reproduction and experimental study of PointACT, a dual-system 3D-aware VLA policy developed by Shizhe Chen’s team at Inria. It couples a frozen pretrained VLM backbone with a dedicated point-action expert using multi-scale 3D point clouds and bottleneck window self-attention for precise robotic manipulation on LIBERO and RLBench.',
+            'Reproduction and experimental study of PointACT, a dual-system 3D-aware VLA policy developed by Shizhe Chen’s team at Inria. It couples a frozen pretrained VLM backbone with a dedicated point-action expert using multi-scale 3D point clouds and bottleneck window self-attention for robotic manipulation on LIBERO and RLBench.',
           tags: ['VLA', '3D Point Clouds', 'Robotics', 'Point Transformer', 'Inria · RSS 2026'],
+          paperPreview: {
+            venue: 'RSS 2026 · arXiv:2605.21414 · Inria / ENS',
+            instLogo: BRANDS.inria.src,
+            instAlt: 'Inria',
+            paperTitle: 'PointACT: Vision-Language-Action Models with Multi-Scale Point-Action Interaction',
+            authors: 'Shizhe Chen, Paul Pacaud, Cordelia Schmid',
+            figureImg: 'https://cshizhe.github.io/projects/resources/pointact/teaser_c.png',
+            fallbackFlow: '[Frozen VLM] + [Multi-Scale Point Transformer] → [Point-Action Expert]',
+            metric: '+10% RLBench',
+          },
           links: [
-            { type: 'paper', label: 'Paper (arXiv)', url: 'https://arxiv.org/abs/2605.21414' },
-            { type: 'github', label: 'Code (robot-PointAct)', url: 'https://github.com/Squenger/robot-PointAct' },
+            { type: 'paper', label: 'Paper (arXiv:2605.21414)', url: 'https://arxiv.org/abs/2605.21414' },
+            { type: 'github', label: 'GitHub · robot-PointAct', url: 'https://github.com/Squenger/robot-PointAct' },
           ],
         },
         {
-          featured: false,
           year: '2025 – 2026',
           category: 'vision',
-          badge: 'Vision & Multimodal',
-          venue: 'NeurIPS 2025 · Datasets & Benchmarks Track',
-          title: 'EgoBlind — Egocentric Visual Assistance',
+          catLabel: 'Vision & Multimodal',
+          title: 'EgoBlind — Egocentric Visual Assistance for the Blind',
           desc:
-            'Research project around EgoBlind, the first egocentric VideoQA benchmark collected from blind and visually impaired users to evaluate Multimodal Large Language Models (MLLMs) in real daily-life assistive scenarios (1,392 first-person videos, 5,311 in-situation questions). Highlights key gaps between current MLLMs (~60%) and human performance (87.4%).',
+            'Research project centered on EgoBlind, the first egocentric VideoQA benchmark collected directly from blind and visually impaired users to evaluate Multimodal Large Language Models (MLLMs) in real daily-life assistive scenarios (navigating, cooking, shopping, traveling). Across 1,392 first-person videos and 5,311 in-situation questions, it reveals key gaps between current MLLMs (~60%) and human performance (87.4%).',
           tags: ['Egocentric VideoQA', 'MLLMs', 'Assistive AI', 'NeurIPS 2025'],
+          paperPreview: {
+            venue: 'NeurIPS 2025 · arXiv:2503.08221 · Datasets & Benchmarks',
+            instLogo: null,
+            instAlt: '',
+            paperTitle: 'EgoBlind: Towards Egocentric Visual Assistance for the Blind',
+            authors: 'First Egocentric VideoQA Benchmark from Blind & Visually Impaired Users',
+            figureImg: null,
+            fallbackFlow: '1,392 First-Person Daily Videos + 5,311 In-Situation Questions → MLLM Evaluation',
+            metric: 'MLLM ~60% vs 87.4%',
+          },
           links: [
-            { type: 'paper', label: 'Paper (arXiv)', url: 'https://arxiv.org/abs/2503.08221' },
+            { type: 'paper', label: 'Paper (arXiv:2503.08221)', url: 'https://arxiv.org/abs/2503.08221' },
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'nlp',
-          badge: 'NLP & Generative',
-          venue: 'Transformer · DPO · MidiBert',
+          catLabel: 'NLP & Generative',
           title: 'AI-Driven Music Generator',
           desc:
-            'Generative MIDI model using a Transformer aligned with Direct Preference Optimization (DPO), paired with a pre-trained MidiBert network repurposed as a reward-based music judge.',
+            'Designed a generative MIDI model utilizing a Transformer architecture aligned with Direct Preference Optimization (DPO). Repurposed a pre-trained MidiBert network into a reward-based "music judge" to improve harmonic quality and structural consistency.',
           tags: ['Transformer', 'DPO', 'MidiBert', 'Generative MIDI'],
+          paperPreview: null,
           links: [
             { type: 'github', label: 'Music Model', url: 'https://github.com/Squenger/Music_Generation_Transformers' },
             { type: 'github', label: 'MidiBert Judge', url: 'https://github.com/Squenger/converting-MidiBERT-into-a-Judge' },
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'vision',
-          badge: 'Vision & Multimodal',
-          venue: 'CNN · Triplet Loss',
+          catLabel: 'Vision & Multimodal',
           title: 'Deep Learning Facial Recognition System',
           desc:
-            'End-to-end computer vision pipeline built with CNNs and Triplet Loss, achieving 90% accuracy in learning robust facial embeddings for automated photo tagging.',
+            'Developed an end-to-end computer vision pipeline using Convolutional Neural Networks and Triplet Loss, achieving 90% accuracy in learning robust facial embeddings for automated photo tagging.',
           tags: ['CNN', 'Triplet Loss', 'Facial Embeddings', 'Computer Vision'],
+          paperPreview: null,
           links: [
             {
               type: 'github',
@@ -235,15 +324,14 @@ const DATA = {
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'nlp',
-          badge: 'NLP & Generative',
-          venue: 'Decoder-only Transformer',
+          catLabel: 'NLP & Generative',
           title: 'Generative Literary Style Transfer',
           desc:
-            'Decoder-only Transformer trained on classical poetry and Shakespearean plays to capture rhythmic meters and distinctive stylistic nuances.',
+            'Engineered a Decoder-only Transformer for stylistic text generation, trained on classical poetry and Shakespearean plays to capture unique rhythmic meters and linguistic nuances.',
           tags: ['Decoder-only Transformer', 'Stylistic Generation', 'NLP'],
+          paperPreview: null,
           links: [
             { type: 'github', label: 'Poem Generator', url: 'https://github.com/Squenger/French-poem-generator' },
           ],
@@ -251,28 +339,31 @@ const DATA = {
       ],
     },
     internship: {
-      pill: 'Internship',
-      bannerTitle: 'Computer Vision Research Internship',
-      bannerSub: 'Multimodal Vision Transformers · Robotics · Master 2 MVA',
-      lookingHeading: "What I'm Looking For",
+      kicker: 'Master 2 MVA · Research Internship',
+      title: 'Internship Search & Resume',
+      sub: 'Looking for a Computer Vision research internship in Multimodal Vision Transformers or Robotics.',
       criteria: [
-        { icon: 'calendar', label: 'Duration', value: '4–6 months starting from April' },
-        { icon: 'pin', label: 'Locations', value: 'Paris, Zurich, Lausanne, Geneva, Berlin, London, Barcelona' },
-        { icon: 'cpu', label: 'Focus', value: 'Computer Vision · Multimodal Vision Transformers · Robotics' },
-        { icon: 'briefcase', label: 'Type', value: 'Research Internship (Master 2 MVA)' },
+        { label: 'Duration', val: '4 to 6 months starting from April' },
+        { label: 'Research Focus', val: 'Computer Vision · Multimodal Vision Transformers · Robotics' },
+        { label: 'Locations', val: 'Paris, Zurich, Lausanne, Geneva, Berlin, London, Barcelona' },
+        { label: 'Program', val: 'Master 2 MVA — ENS Paris-Saclay' },
       ],
-      resumeTitle: 'My Resume',
-      downloadBtn: 'Download Resume (PDF)',
+      cvTitle: 'Curriculum Vitae (cv.pdf)',
+      downloadBtn: 'Download CV (PDF)',
       openBtn: 'Open in New Tab',
-      fallbackText: 'Your browser cannot display the PDF inline. Use the button above to download or open cv.pdf.',
+      fallbackText: 'Inline PDF preview requires cv.pdf at the root of the repository. Use the buttons above once uploaded.',
     },
     contact: {
-      pill: 'Contact',
-      title: 'Get in Touch',
-      subtitle: 'Open to research internship opportunities, academic collaborations, and technical discussions.',
+      kicker: 'Correspondence',
+      title: 'Contact',
+      sub: 'Feel free to reach out regarding research internships, collaborations, or academic inquiries.',
+      emailLabel: 'Direct Email',
+      githubLabel: 'GitHub',
+      linkedinLabel: 'LinkedIn',
       revealBtn: 'Reveal Email',
-      mailBtn: 'Send Email',
-      copyBtn: 'Copy Email',
+      mailBtn: 'Open Mail',
+      copyBtn: 'Copy',
+      openProfile: 'Open Profile',
       copiedToast: 'Email copied to clipboard',
     },
   },
@@ -280,99 +371,100 @@ const DATA = {
   fr: {
     nav: {
       home: 'Accueil',
-      about: 'À propos',
+      about: 'Parcours',
       projects: 'Projets',
-      internship: 'Stage',
+      internship: 'Stage & CV',
       contact: 'Contact',
     },
-    hero: {
-      greeting: 'Bonjour, je suis',
-      name: 'Aimine Meddeb',
-      tagline:
-        "Étudiant en Master MVA à l'ENS Paris-Saclay et élève-ingénieur à l'IOGS, spécialisé en Vision par Ordinateur, Multimodal Vision Transformers, Robotique et LLM.",
-      ctaWork: 'Voir mes projets',
-      ctaInternship: 'Stage de recherche',
-      scrollCue: 'Défiler pour explorer',
-      loc: 'Paris-Saclay, France',
-      facts: [
-        { label: 'Formation', value: 'Master 2 MVA — ENS Paris-Saclay' },
-        { label: 'Ingénieur', value: "Institut d'Optique (IOGS) · GPA 4/4" },
-        { label: 'Domaines', value: 'Vision par Ordinateur · ViT Multimodaux · Robotique' },
-        { label: 'Disponibilité', value: 'Stage de recherche de 4 à 6 mois dès avril' },
+    home: {
+      kicker: 'Master 2 MVA · ENS Paris-Saclay · IOGS',
+      firstName: 'Aimine',
+      lastName: 'Meddeb',
+      lead:
+        "Étudiant en dernière année du Master MVA à l'ENS Paris-Saclay et élève-ingénieur à l'Institut d'Optique (IOGS). Mes travaux portent sur la Vision par Ordinateur, les Multimodal Vision Transformers, la Robotique 3D et les LLM.",
+      ctaProjects: 'Voir mes projets →',
+      ctaInternship: 'Stage & CV',
+      status: [
+        { label: 'Stage recherché', val: 'Recherche en Vision par Ordinateur · Multimodal ViT / Robotique' },
+        { label: 'Disponibilité', val: "4 à 6 mois à partir d'avril" },
+        { label: 'Lieux souhaités', val: 'Paris, Zurich, Lausanne, Genève, Berlin, Londres, Barcelone' },
+      ],
+      logosHeading: 'Universités & Entreprises',
+      skillsHeading: 'Domaines Techniques',
+      skills: [
+        { title: 'Machine Learning & IA', text: 'LLM, MLLM, ViT Multimodaux, DPO, IA Générative, PyTorch, Scikit-learn' },
+        { title: 'Vision & 3D', text: "Nuages de Points 3D, Reconstruction Volumétrique, Recalage d'Images, OpenCV" },
+        { title: 'Robotique & Optimisation', text: 'Politiques VLA, Contrôle, Modélisation Mathématique, Séries Temporelles, LaTeX' },
+        { title: 'Langues', text: 'Français (Natif), Anglais (TOEIC C1), Allemand (Débutant)' },
       ],
     },
     about: {
-      pill: 'À propos',
-      title: 'À propos de moi',
-      bio:
-        "Étudiant en dernière année du Master MVA à l'ENS Paris-Saclay et élève-ingénieur à l'Institut d'Optique (IOGS). Mes travaux se situent à l'interface des mathématiques appliquées, de la vision par ordinateur 3D, de l'apprentissage multimodal et de la robotique. J'aime approfondir la littérature scientifique, reproduire des architectures récentes et concevoir des systèmes fiables.",
-      skills: [
-        'PyTorch',
-        'Vision par Ordinateur',
-        'Nuages de Points 3D',
-        'Vision-Language-Action (VLA)',
-        'MLLM',
-        'Transformers',
-        'DPO',
-        'Reconstruction Volumétrique',
-        'OpenCV',
-        'Français · Anglais (C1)',
-      ],
-      expHeading: 'Expériences',
-      eduHeading: 'Formation',
+      kicker: 'Parcours Académique & Industriel',
+      title: 'Parcours',
+      sub: 'Stages de recherche en deep learning 3D et photonique, vision industrielle et mathématiques appliquées.',
+      expTitle: 'Expériences',
+      eduTitle: 'Formation',
       experience: [
         {
+          brand: 'uqtr',
           period: 'Mars – Août 2026',
           role: 'Stage de Recherche',
           org: 'Université du Québec à Trois-Rivières (UQTR)',
           desc:
-            "Reconstruction 3D quasi temps réel par deep learning pour l'intégration micro-CT dans un jumeau numérique d'impression 3D, combinant corrélation cross-modale et synthèse volumétrique générative.",
+            "Reconstruction 3D quasi temps réel par deep learning pour l'intégration micro-CT dans un jumeau numérique d'impression 3D. Corrélation cross-modale et synthèse volumétrique générative.",
         },
         {
+          brand: 'valeo',
           period: 'Janv. – Mars 2026',
           role: "Correction d'Images Industrielles",
           org: 'VALEO',
           desc:
-            "Pipeline automatisé de recalage et centrage d'images (ORB, RANSAC) pour le contrôle qualité industriel de logos automobiles (< 0,5 % d'erreur).",
+            "Pipeline de vision par ordinateur pour le recalage et centrage automatisés (ORB, RANSAC) pour le contrôle qualité de logos automobiles (< 0,5 % d'erreur).",
         },
         {
+          brand: 'aurea',
           period: 'Mai – Août 2025',
           role: 'Stage Photonique',
           org: 'Aurea Technology',
           desc:
-            "Source de photons intriqués pour communications quantiques par satellite (ESA TeQuantS) et système EDFA à 10 dB d'amplification.",
+            "Source de photons intriqués pour les communications quantiques par satellite (ESA TeQuantS). Développement d'un système EDFA atteignant 10 dB d'amplification.",
         },
         {
+          brand: 'vitaim',
           period: 'Sept. 2024 – Juil. 2025',
           role: 'Co-fondateur, Programme Innovation',
           org: 'VITAIM',
           desc:
-            'Direction technique pour une startup en cryptographie post-quantique (PQC). Lauréat du concours de pitch Paris-Saclay.',
+            'Direction technique pour une startup en cryptographie post-quantique (PQC). Lauréat du concours de pitch entrepreneurial Paris-Saclay.',
         },
         {
+          brand: 'parcdesloges',
           period: 'Sept. 2024 – Juin 2025',
           role: 'Examinateur Oral (Colleur)',
           org: 'Lycée du Parc des Loges',
-          desc: 'Examinateur oral de mathématiques en classes préparatoires (PSI).',
+          desc: 'Examinateur oral de mathématiques pour les classes préparatoires aux grandes écoles (PSI).',
         },
       ],
       education: [
         {
+          brand: 'ens',
           period: '2026 – présent',
           degree: 'Master MVA',
           org: 'ENS Paris-Saclay',
-          desc: "Mathématiques Appliquées axées sur le Machine Learning, la Vision par Ordinateur et l'IA.",
+          desc: "Master de Mathématiques Appliquées axé sur le Machine Learning, la Vision par Ordinateur et l'IA.",
           courses:
-            'Computer Vision · Deep Learning · Robotics · Foundations of LLMs · Text & Graph Learning · Optimization · Time Series · Computational Statistics',
+            'Cours : Computer Vision · Deep Learning · Robotics · Foundations of LLMs · Advanced Text & Graph Learning · Optimization · Time Series · Computational Statistics',
         },
         {
+          brand: 'upsaclay',
           period: '2024 – 2026',
           degree: 'Master ATSI',
           org: 'Université Paris-Saclay',
-          desc: 'Vision par Ordinateur, architectures Deep Learning et Optimisation Appliquée.',
+          desc: 'Spécialisé en Vision par Ordinateur, architectures Deep Learning et Optimisation Appliquée.',
           courses: null,
         },
         {
+          brand: 'iogs',
           period: '2023 – 2026',
           degree: "Diplôme d'Ingénieur",
           org: "Institut d'Optique (IOGS)",
@@ -380,6 +472,7 @@ const DATA = {
           courses: null,
         },
         {
+          brand: 'upsaclay',
           period: '2023 – 2024',
           degree: 'Licence de Mathématiques',
           org: 'Université Paris-Saclay',
@@ -387,8 +480,9 @@ const DATA = {
           courses: null,
         },
         {
+          brand: 'saintlouis',
           period: '2021 – 2023',
-          degree: 'CPGE MPSI / MP*',
+          degree: 'Classes Préparatoires (CPGE MPSI/MP*)',
           org: 'Lycée Saint-Louis, Paris',
           desc: 'Classes préparatoires intensives en Mathématiques et Informatique.',
           courses: null,
@@ -396,9 +490,9 @@ const DATA = {
       ],
     },
     projects: {
-      pill: 'Travaux',
-      title: 'Mes Projets',
-      subtitle: 'Reproductions de papiers de recherche et projets en robotique, vision multimodale et IA générative.',
+      kicker: 'Recherche & Implémentations',
+      title: 'Projets & Papiers',
+      sub: 'Reproductions de papiers de recherche, benchmarks et implémentations en robotique 3D, vision multimodale et IA générative.',
       filters: [
         { id: 'all', label: 'Tous' },
         { id: 'robotics', label: 'Robotique & 3D' },
@@ -407,59 +501,73 @@ const DATA = {
       ],
       items: [
         {
-          featured: true,
           year: '2026',
           category: 'robotics',
-          badge: 'Mis en avant · Robotique & 3D',
-          venue: "D'après Shizhe Chen, Paul Pacaud & Cordelia Schmid · Inria / ENS · RSS 2026",
+          catLabel: 'Robotique & 3D',
           title: 'PointACT — Politique Vision-Langage-Action 3D',
           desc:
             "Reproduction et étude expérimentale de PointACT, une politique VLA 3D à double système conçue par l'équipe de Shizhe Chen à l'Inria. Elle associe un backbone VLM pré-entraîné figé à un expert point-action exploitant des nuages de points 3D multi-échelles par attention fenêtrée pour la manipulation robotique sur LIBERO et RLBench.",
           tags: ['VLA', 'Nuages de Points 3D', 'Robotique', 'Point Transformer', 'Inria · RSS 2026'],
+          paperPreview: {
+            venue: 'RSS 2026 · arXiv:2605.21414 · Inria / ENS',
+            instLogo: BRANDS.inria.src,
+            instAlt: 'Inria',
+            paperTitle: 'PointACT: Vision-Language-Action Models with Multi-Scale Point-Action Interaction',
+            authors: 'Shizhe Chen, Paul Pacaud, Cordelia Schmid',
+            figureImg: 'https://cshizhe.github.io/projects/resources/pointact/teaser_c.png',
+            fallbackFlow: '[VLM Figé] + [Point Transformer Multi-Échelles] → [Expert Point-Action]',
+            metric: '+10% RLBench',
+          },
           links: [
-            { type: 'paper', label: 'Article (arXiv)', url: 'https://arxiv.org/abs/2605.21414' },
-            { type: 'github', label: 'Code (robot-PointAct)', url: 'https://github.com/Squenger/robot-PointAct' },
+            { type: 'paper', label: 'Article (arXiv:2605.21414)', url: 'https://arxiv.org/abs/2605.21414' },
+            { type: 'github', label: 'GitHub · robot-PointAct', url: 'https://github.com/Squenger/robot-PointAct' },
           ],
         },
         {
-          featured: false,
           year: '2025 – 2026',
           category: 'vision',
-          badge: 'Vision & Multimodal',
-          venue: 'NeurIPS 2025 · Datasets & Benchmarks Track',
+          catLabel: 'Vision & Multimodal',
           title: 'EgoBlind — Assistance Visuelle Égocentrique',
           desc:
-            "Projet autour d'EgoBlind, le premier benchmark VideoQA égocentrique collecté auprès de personnes aveugles et malvoyantes pour évaluer les capacités d'assistance visuelle des MLLM au quotidien (1 392 vidéos subjectives, 5 311 questions en contexte). Met en évidence l'écart entre les MLLM actuels (~60 %) et l'humain (87,4 %).",
+            "Projet autour d'EgoBlind, le premier benchmark VideoQA égocentrique collecté directement auprès de personnes aveugles et malvoyantes pour évaluer les capacités d'assistance visuelle des grands modèles multimodaux (MLLM) au quotidien (navigation, cuisine, courses, trajets). Sur 1 392 vidéos subjectives et 5 311 questions en contexte, il met en évidence l'écart entre les MLLM actuels (~60 %) et l'humain (87,4 %).",
           tags: ['VideoQA Égocentrique', 'MLLM', 'IA Assistive', 'NeurIPS 2025'],
+          paperPreview: {
+            venue: 'NeurIPS 2025 · arXiv:2503.08221 · Datasets & Benchmarks',
+            instLogo: null,
+            instAlt: '',
+            paperTitle: 'EgoBlind: Towards Egocentric Visual Assistance for the Blind',
+            authors: 'Premier benchmark VideoQA égocentrique issu de personnes aveugles et malvoyantes',
+            figureImg: null,
+            fallbackFlow: '1 392 vidéos 1ère personne + 5 311 questions en situation → Évaluation MLLM',
+            metric: 'MLLM ~60% vs 87.4%',
+          },
           links: [
-            { type: 'paper', label: 'Article (arXiv)', url: 'https://arxiv.org/abs/2503.08221' },
+            { type: 'paper', label: 'Article (arXiv:2503.08221)', url: 'https://arxiv.org/abs/2503.08221' },
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'nlp',
-          badge: 'NLP & Génératif',
-          venue: 'Transformer · DPO · MidiBert',
+          catLabel: 'NLP & Génératif',
           title: 'AI-Driven Music Generator',
           desc:
-            "Modèle génératif MIDI basé sur un Transformer aligné par Direct Preference Optimization (DPO), associé à un réseau MidiBert pré-entraîné converti en juge musical.",
+            "Conception d'un modèle génératif MIDI basé sur un Transformer aligné par Direct Preference Optimization (DPO). Réutilisation d'un réseau MidiBert pré-entraîné en « juge musical » pour améliorer la qualité harmonique et la cohérence.",
           tags: ['Transformer', 'DPO', 'MidiBert', 'MIDI Génératif'],
+          paperPreview: null,
           links: [
             { type: 'github', label: 'Music Model', url: 'https://github.com/Squenger/Music_Generation_Transformers' },
             { type: 'github', label: 'MidiBert Judge', url: 'https://github.com/Squenger/converting-MidiBERT-into-a-Judge' },
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'vision',
-          badge: 'Vision & Multimodal',
-          venue: 'CNN · Triplet Loss',
+          catLabel: 'Vision & Multimodal',
           title: 'Deep Learning Facial Recognition System',
           desc:
-            "Pipeline complet de vision par ordinateur utilisant des CNN et la Triplet Loss, atteignant 90 % de précision pour l'étiquetage photo automatisé.",
+            "Développement d'un pipeline de vision de bout en bout utilisant des CNN et la Triplet Loss, atteignant 90 % de précision dans l'apprentissage d'embeddings faciaux robustes pour l'étiquetage photo automatisé.",
           tags: ['CNN', 'Triplet Loss', 'Embeddings Faciaux', 'Vision par Ordinateur'],
+          paperPreview: null,
           links: [
             {
               type: 'github',
@@ -474,15 +582,14 @@ const DATA = {
           ],
         },
         {
-          featured: false,
           year: '2026',
           category: 'nlp',
-          badge: 'NLP & Génératif',
-          venue: 'Decoder-only Transformer',
+          catLabel: 'NLP & Génératif',
           title: 'Generative Literary Style Transfer',
           desc:
-            'Transformer Decoder-only entraîné sur de la poésie classique et des pièces de Shakespeare pour capturer les motifs rythmiques et nuances stylistiques.',
+            "Conception d'un Transformer Decoder-only pour la génération stylistique, entraîné sur de la poésie classique et des pièces de Shakespeare pour capturer des motifs rythmiques et des nuances linguistiques.",
           tags: ['Decoder-only Transformer', 'Génération Stylistique', 'NLP'],
+          paperPreview: null,
           links: [
             { type: 'github', label: 'Poem Generator', url: 'https://github.com/Squenger/French-poem-generator' },
           ],
@@ -490,154 +597,310 @@ const DATA = {
       ],
     },
     internship: {
-      pill: 'Stage',
-      bannerTitle: 'Stage de Recherche en Vision par Ordinateur',
-      bannerSub: 'Multimodal Vision Transformers · Robotique · Master 2 MVA',
-      lookingHeading: 'Ce que je recherche',
+      kicker: 'Master 2 MVA · Stage de Recherche',
+      title: 'Recherche de Stage & CV',
+      sub: 'À la recherche d’un stage de recherche en Vision par Ordinateur (Multimodal Vision Transformers ou Robotique).',
       criteria: [
-        { icon: 'calendar', label: 'Durée', value: '4 à 6 mois à partir de avril' },
-        { icon: 'pin', label: 'Lieux', value: 'Paris, Zurich, Lausanne, Genève, Berlin, Londres, Barcelone' },
-        { icon: 'cpu', label: 'Domaines', value: 'Vision par ordinateur · Multimodal Vision Transformers · Robotique' },
-        { icon: 'briefcase', label: 'Type', value: 'Stage de recherche (Master 2 MVA)' },
+        { label: 'Durée', val: "4 à 6 mois à partir d'avril" },
+        { label: 'Domaines', val: 'Vision par ordinateur · Multimodal Vision Transformers · Robotique' },
+        { label: 'Lieux', val: 'Paris, Zurich, Lausanne, Genève, Berlin, Londres, Barcelone' },
+        { label: 'Formation', val: 'Master 2 MVA — ENS Paris-Saclay' },
       ],
-      resumeTitle: 'Mon CV',
+      cvTitle: 'Curriculum Vitae (cv.pdf)',
       downloadBtn: 'Télécharger le CV (PDF)',
       openBtn: 'Ouvrir dans un onglet',
-      fallbackText: "Votre navigateur ne peut pas afficher le PDF directement. Utilisez le bouton ci-dessus pour ouvrir cv.pdf.",
+      fallbackText: "L'aperçu intégré s'affichera automatiquement dès que cv.pdf sera placé à la racine du dépôt.",
     },
     contact: {
-      pill: 'Contact',
-      title: 'Me Contacter',
-      subtitle: 'Disponible pour discuter d’un stage de recherche, d’une collaboration académique ou d’un projet technique.',
+      kicker: 'Correspondance',
+      title: 'Contact',
+      sub: "N'hésitez pas à me contacter pour un stage de recherche, une collaboration académique ou un projet technique.",
+      emailLabel: 'Email Direct',
+      githubLabel: 'GitHub',
+      linkedinLabel: 'LinkedIn',
       revealBtn: "Afficher l'email",
-      mailBtn: 'Envoyer un email',
-      copyBtn: "Copier l'email",
+      mailBtn: 'Écrire',
+      copyBtn: 'Copier',
+      openProfile: 'Ouvrir le profil',
       copiedToast: 'Adresse email copiée',
     },
   },
 };
 
-let currentLang = localStorage.getItem('aimine-lang') === 'fr' ? 'fr' : 'en';
+function safeGetStorage(key) {
+  try {
+    return window.localStorage.getItem(key);
+  } catch (e) {
+    return null;
+  }
+}
+
+function safeSetStorage(key, val) {
+  try {
+    window.localStorage.setItem(key, val);
+  } catch (e) {
+    // Ignore storage errors in sandboxed preview iframes
+  }
+}
+
+const VALID_ROUTES = ['home', 'about', 'projects', 'internship', 'contact'];
+let currentRoute = 'home';
+let currentLang = safeGetStorage('aimine-lang') === 'fr' ? 'fr' : 'en';
 let currentFilter = 'all';
 
-function initTheme() {
-  const saved = localStorage.getItem('aimine-theme');
-  if (saved === 'light') {
-    document.documentElement.classList.add('light');
-  } else {
-    document.documentElement.classList.remove('light');
+function getRouteFromHash() {
+  try {
+    const hash = window.location.hash.replace('#', '').trim().toLowerCase();
+    return VALID_ROUTES.includes(hash) ? hash : 'home';
+  } catch (e) {
+    return 'home';
   }
-  updateThemeIcon();
+}
+
+function navigateTo(route, event) {
+  if (event) event.preventDefault();
+  if (!VALID_ROUTES.includes(route)) route = 'home';
+  currentRoute = route;
+  try {
+    if (window.location.hash !== '#' + route) {
+      window.history.pushState({ route }, '', '#' + route);
+    }
+  } catch (e) {
+    // Sandboxed iframe without history access
+  }
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  renderApp();
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  safeSetStorage('aimine-lang', currentLang);
+  document.documentElement.lang = currentLang;
+  renderApp();
+}
+
+function initTheme() {
+  const saved = safeGetStorage('aimine-theme');
+  if (saved === 'dark') {
+    document.documentElement.classList.remove('light');
+  } else {
+    document.documentElement.classList.add('light');
+  }
 }
 
 function toggleTheme() {
   const isLight = document.documentElement.classList.toggle('light');
-  localStorage.setItem('aimine-theme', isLight ? 'light' : 'dark');
-  updateThemeIcon();
-}
-
-function updateThemeIcon() {
-  const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  const isLight = document.documentElement.classList.contains('light');
-  btn.innerHTML = isLight ? ICONS.moon : ICONS.sun;
-}
-
-function toggleLanguage() {
-  currentLang = currentLang === 'en' ? 'fr' : 'en';
-  localStorage.setItem('aimine-lang', currentLang);
-  document.documentElement.lang = currentLang;
-  renderAll();
+  safeSetStorage('aimine-theme', isLight ? 'light' : 'dark');
+  updateTopbar();
 }
 
 function setProjectFilter(filterId) {
   currentFilter = filterId;
-  renderProjects();
+  renderApp();
 }
 
-function renderNav() {
+function updateTopbar() {
   const nav = DATA[currentLang].nav;
   document.querySelectorAll('.nav-link').forEach((el) => {
-    const key = el.getAttribute('data-section');
-    if (nav[key]) el.textContent = nav[key];
+    const r = el.getAttribute('data-route');
+    if (nav[r]) el.textContent = nav[r];
+    el.classList.toggle('is-active', r === currentRoute);
   });
-  const langLabel = document.getElementById('lang-label');
-  if (langLabel) langLabel.textContent = currentLang === 'en' ? 'FR' : 'EN';
+
+  const langBtn = document.getElementById('lang-label');
+  if (langBtn) langBtn.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    const isLight = document.documentElement.classList.contains('light');
+    themeBtn.innerHTML = isLight ? ICONS.moon : ICONS.sun;
+  }
 }
 
-function renderHero() {
-  const h = DATA[currentLang].hero;
-  document.getElementById('hero-greeting-text').textContent = h.greeting;
-  document.getElementById('hero-name-text').textContent = h.name;
-  document.getElementById('hero-tagline').textContent = h.tagline;
-  document.getElementById('hero-cta-work').textContent = h.ctaWork;
-  document.getElementById('hero-cta-internship').textContent = h.ctaInternship;
-  document.getElementById('hero-scroll-text').textContent = h.scrollCue;
-  document.getElementById('hero-loc').textContent = h.loc;
+function renderHomePage() {
+  const h = DATA[currentLang].home;
+  const featuredLogos = ['ens', 'upsaclay', 'iogs', 'uqtr', 'valeo', 'aurea'];
 
-  document.getElementById('hero-facts').innerHTML = h.facts
+  return `
+    <div class="page-view">
+      <section class="hero-grid">
+        <div>
+          <p class="kicker">${h.kicker}</p>
+          <h1 class="hero-h1">${h.firstName} <span>${h.lastName}</span></h1>
+          <p class="hero-lead">${h.lead}</p>
+          <div class="btn-row">
+            <a href="#projects" onclick="navigateTo('projects', event)" class="btn btn-primary">${h.ctaProjects}</a>
+            <a href="#internship" onclick="navigateTo('internship', event)" class="btn btn-outline">${h.ctaInternship}</a>
+          </div>
+          <div class="hero-socials">
+            <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer">github.com/Squenger ↗</a>
+            <span>·</span>
+            <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <span>·</span>
+            <button type="button" onclick="openObfuscatedMail()">aimine28 [at] gmail [dot] com</button>
+          </div>
+        </div>
+
+        <aside class="status-panel">
+          ${h.status
+            .map(
+              (s) => `
+              <div class="status-row">
+                <div class="status-label">${s.label}</div>
+                <div class="status-val">${s.val}</div>
+              </div>
+            `
+            )
+            .join('')}
+        </aside>
+      </section>
+
+      <section class="logos-section">
+        <p class="logos-head">${h.logosHeading}</p>
+        <div class="logos-grid">
+          ${featuredLogos
+            .map(
+              (key) => `
+              <div class="logo-tile">
+                ${renderLogo(key, 'sm')}
+                <span class="logo-tile-name">${BRANDS[key].name}</span>
+              </div>
+            `
+            )
+            .join('')}
+        </div>
+      </section>
+
+      <section class="skills-section">
+        <p class="logos-head">${h.skillsHeading}</p>
+        <div class="skills-grid">
+          ${h.skills
+            .map(
+              (s) => `
+              <div class="skill-card">
+                <h3>${s.title}</h3>
+                <p>${s.text}</p>
+              </div>
+            `
+            )
+            .join('')}
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function renderAboutPage() {
+  const a = DATA[currentLang].about;
+
+  const expHtml = a.experience
     .map(
-      (f) => `
-      <div class="hero-fact">
-        <span class="hero-fact-label">${f.label}</span>
-        <span class="hero-fact-val">${f.value}</span>
+      (e) => `
+      <article class="entry-card">
+        ${renderLogo(e.brand, 'md')}
+        <div class="entry-body">
+          <div class="entry-top">
+            <h3 class="entry-title">${e.role}</h3>
+            <span class="entry-date">${e.period}</span>
+          </div>
+          <p class="entry-org">${e.org}</p>
+          <p class="entry-desc">${e.desc}</p>
+        </div>
+      </article>
+    `
+    )
+    .join('');
+
+  const eduHtml = a.education
+    .map(
+      (e) => `
+      <article class="entry-card">
+        ${renderLogo(e.brand, 'md')}
+        <div class="entry-body">
+          <div class="entry-top">
+            <h3 class="entry-title">${e.degree}</h3>
+            <span class="entry-date">${e.period}</span>
+          </div>
+          <p class="entry-org">${e.org}</p>
+          <p class="entry-desc">${e.desc}</p>
+          ${e.courses ? `<p class="entry-courses">${e.courses}</p>` : ''}
+        </div>
+      </article>
+    `
+    )
+    .join('');
+
+  return `
+    <div class="page-view">
+      <header class="page-head">
+        <p class="kicker">${a.kicker}</p>
+        <h1 class="page-title">${a.title}</h1>
+        <p class="page-sub">${a.sub}</p>
+      </header>
+
+      <div class="career-grid">
+        <section>
+          <h2 class="col-title">${a.expTitle}</h2>
+          <div class="entry-stack">${expHtml}</div>
+        </section>
+        <section>
+          <h2 class="col-title">${a.eduTitle}</h2>
+          <div class="entry-stack">${eduHtml}</div>
+        </section>
+      </div>
+    </div>
+  `;
+}
+
+function renderPaperPreview(preview) {
+  if (!preview) return '';
+  const instLogoHtml = preview.instLogo
+    ? `<img src="${preview.instLogo}" alt="${preview.instAlt}" class="paper-inst-logo" loading="lazy" onerror="this.style.display='none';" />`
+    : '';
+
+  const figureHtml = preview.figureImg
+    ? `
+      <div class="paper-figure" style="flex-direction:column; align-items:stretch;">
+        <img
+          src="${preview.figureImg}"
+          alt="${preview.paperTitle}"
+          class="paper-figure-img"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div style="display:none; align-items:center; justify-content:space-between; gap:10px;">
+          <span class="paper-fig-flow">${preview.fallbackFlow}</span>
+          <span class="paper-fig-metric">${preview.metric}</span>
+        </div>
       </div>
     `
-    )
-    .join('');
+    : `
+      <div class="paper-figure">
+        <span class="paper-fig-flow">${preview.fallbackFlow}</span>
+        <span class="paper-fig-metric">${preview.metric}</span>
+      </div>
+    `;
+
+  return `
+    <div class="paper-preview">
+      <div class="paper-sheet">
+        <div class="paper-sheet-top">
+          <span class="paper-venue">${preview.venue}</span>
+          ${instLogoHtml}
+        </div>
+        <div class="paper-title">${preview.paperTitle}</div>
+        <div class="paper-authors">${preview.authors}</div>
+        ${figureHtml}
+      </div>
+    </div>
+  `;
 }
 
-function renderAbout() {
-  const a = DATA[currentLang].about;
-  document.getElementById('about-pill').textContent = a.pill;
-  document.getElementById('about-title').textContent = a.title;
-  document.getElementById('about-bio').textContent = a.bio;
-  document.getElementById('exp-heading').textContent = a.expHeading;
-  document.getElementById('edu-heading').textContent = a.eduHeading;
-
-  document.getElementById('about-skills').innerHTML = a.skills
-    .map((s) => `<span class="skill-tag">${s}</span>`)
-    .join('');
-
-  document.getElementById('exp-list').innerHTML = a.experience
-    .map(
-      (e) => `
-      <article class="timeline-card">
-        <div class="timeline-top">
-          <h4 class="timeline-title">${e.role}</h4>
-          <span class="timeline-date">${e.period}</span>
-        </div>
-        <p class="timeline-org">${e.org}</p>
-        <p class="timeline-desc">${e.desc}</p>
-      </article>
-    `
-    )
-    .join('');
-
-  document.getElementById('edu-list').innerHTML = a.education
-    .map(
-      (e) => `
-      <article class="timeline-card">
-        <div class="timeline-top">
-          <h4 class="timeline-title">${e.degree}</h4>
-          <span class="timeline-date">${e.period}</span>
-        </div>
-        <p class="timeline-org">${e.org}</p>
-        <p class="timeline-desc">${e.desc}</p>
-        ${e.courses ? `<p class="timeline-courses">${e.courses}</p>` : ''}
-      </article>
-    `
-    )
-    .join('');
-}
-
-function renderProjects() {
+function renderProjectsPage() {
   const p = DATA[currentLang].projects;
-  document.getElementById('projects-pill').textContent = p.pill;
-  document.getElementById('projects-title').textContent = p.title;
-  document.getElementById('projects-subtitle').textContent = p.subtitle;
+  const filtered = p.items.filter((i) => currentFilter === 'all' || i.category === currentFilter);
 
-  document.getElementById('project-filters').innerHTML = p.filters
+  const filtersHtml = p.filters
     .map(
       (f) => `
       <button type="button" onclick="setProjectFilter('${f.id}')" class="filter-btn ${f.id === currentFilter ? 'is-active' : ''}">
@@ -647,16 +910,13 @@ function renderProjects() {
     )
     .join('');
 
-  const filtered = p.items.filter((i) => currentFilter === 'all' || i.category === currentFilter);
-
-  document.getElementById('projects-grid').innerHTML = filtered
+  const cardsHtml = filtered
     .map((item) => {
-      const featCls = item.featured && currentFilter === 'all' ? 'is-featured' : '';
       const linksHtml = item.links
         .map((l) => {
           const isPaper = l.type === 'paper';
           return `
-            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="project-link ${isPaper ? 'project-link--paper' : ''}">
+            <a href="${l.url}" target="_blank" rel="noopener noreferrer" class="chip-link ${isPaper ? 'chip-link--paper' : ''}">
               ${isPaper ? ICONS.paper : ICONS.github}
               <span>${l.label}</span>
             </a>
@@ -665,81 +925,171 @@ function renderProjects() {
         .join('');
 
       return `
-        <article class="project-card ${featCls}">
-          <div>
-            <div class="project-head">
-              <span class="project-badge">${item.badge}</span>
-              <span class="project-year">${item.year}</span>
+        <article class="proj-card">
+          ${renderPaperPreview(item.paperPreview)}
+          <div class="proj-body">
+            <div>
+              <div class="proj-meta">
+                <span class="proj-cat">${item.catLabel}</span>
+                <span class="proj-year">${item.year}</span>
+              </div>
+              <h2 class="proj-title">${item.title}</h2>
+              <p class="proj-desc">${item.desc}</p>
             </div>
-            <h3 class="project-title">${item.title}</h3>
-            ${item.venue ? `<p class="project-venue">${item.venue}</p>` : ''}
-            <p class="project-desc">${item.desc}</p>
-          </div>
-          <div class="project-bottom">
-            <div class="project-tags">
-              ${item.tags.map((t) => `<span class="project-tag">${t}</span>`).join('')}
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <div class="proj-tags">
+                ${item.tags.map((t) => `<span class="proj-tag">${t}</span>`).join('')}
+              </div>
+              <div class="proj-links">${linksHtml}</div>
             </div>
-            <div class="project-links">${linksHtml}</div>
           </div>
         </article>
       `;
     })
     .join('');
+
+  return `
+    <div class="page-view">
+      <header class="page-head">
+        <p class="kicker">${p.kicker}</p>
+        <h1 class="page-title">${p.title}</h1>
+        <p class="page-sub">${p.sub}</p>
+      </header>
+      <div class="filter-row" role="tablist">${filtersHtml}</div>
+      <section class="projects-grid">${cardsHtml}</section>
+    </div>
+  `;
 }
 
-function renderInternship() {
+function renderInternshipPage() {
   const i = DATA[currentLang].internship;
-  document.getElementById('intern-pill').textContent = i.pill;
-  document.getElementById('intern-title').textContent = i.bannerTitle;
-  document.getElementById('intern-sub').textContent = i.bannerSub;
-  document.getElementById('intern-looking-heading').textContent = i.lookingHeading;
-  document.getElementById('resume-title').textContent = i.resumeTitle;
-  document.getElementById('resume-download-label').textContent = i.downloadBtn;
-  document.getElementById('resume-open-label').textContent = i.openBtn;
-  document.getElementById('cv-fallback-text').textContent = i.fallbackText;
 
-  document.getElementById('criteria-grid').innerHTML = i.criteria
-    .map(
-      (c) => `
-      <div class="criteria-card">
-        <div class="criteria-icon">${ICONS[c.icon]}</div>
-        <div class="criteria-label">${c.label}</div>
-        <div class="criteria-val">${c.value}</div>
-      </div>
-    `
-    )
-    .join('');
+  return `
+    <div class="page-view">
+      <header class="page-head">
+        <p class="kicker">${i.kicker}</p>
+        <h1 class="page-title">${i.title}</h1>
+        <p class="page-sub">${i.sub}</p>
+      </header>
+
+      <section class="intern-grid">
+        ${i.criteria
+          .map(
+            (c) => `
+            <div class="intern-card">
+              <h3>${c.label}</h3>
+              <p>${c.val}</p>
+            </div>
+          `
+          )
+          .join('')}
+      </section>
+
+      <section class="cv-panel">
+        <div class="cv-panel-head">
+          <h2 class="cv-panel-title">${i.cvTitle}</h2>
+          <div class="btn-row">
+            <a href="cv.pdf" download class="btn btn-primary" style="padding:9px 16px; font-size:13px;">
+              ${ICONS.download}<span>${i.downloadBtn}</span>
+            </a>
+            <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:9px 16px; font-size:13px;">
+              ${ICONS.external}<span>${i.openBtn}</span>
+            </a>
+          </div>
+        </div>
+        <div class="cv-frame-wrap">
+          <object data="cv.pdf#view=FitH" type="application/pdf" class="cv-viewer">
+            <div class="cv-fallback">${i.fallbackText}</div>
+          </object>
+        </div>
+      </section>
+    </div>
+  `;
 }
 
-function renderContact() {
+function renderContactPage() {
   const c = DATA[currentLang].contact;
-  document.getElementById('contact-pill').textContent = c.pill;
-  document.getElementById('contact-title').textContent = c.title;
-  document.getElementById('contact-subtitle').textContent = c.subtitle;
 
-  const emailEl = document.getElementById('contact-email-row');
-  if (isEmailRevealed) {
-    emailEl.innerHTML = `
-      <button type="button" onclick="openObfuscatedMail()" class="email-pill">${getAssembledEmail()}</button>
-      <button type="button" onclick="openObfuscatedMail()" class="btn btn-primary" style="padding:9px 16px; font-size:13px;">${c.mailBtn}</button>
-      <button type="button" onclick="copyEmail()" class="btn btn-ghost" style="padding:9px 16px; font-size:13px;">${c.copyBtn}</button>
+  const emailVal = isEmailRevealed
+    ? `<button type="button" onclick="openObfuscatedMail()" class="contact-val" style="text-align:left; text-decoration:underline; text-underline-offset:4px;">${getAssembledEmail()}</button>`
+    : `<p class="contact-val" style="user-select:none;">${getMaskedEmail()}</p>`;
+
+  const emailBtns = isEmailRevealed
+    ? `
+      <button type="button" onclick="openObfuscatedMail()" class="chip-link chip-link--paper">${c.mailBtn}</button>
+      <button type="button" onclick="copyEmail()" class="chip-link">${c.copyBtn}</button>
+    `
+    : `
+      <button type="button" onclick="revealEmailAddress()" class="chip-link chip-link--paper">${c.revealBtn}</button>
+      <button type="button" onclick="copyEmail()" class="chip-link">${c.copyBtn}</button>
     `;
-  } else {
-    emailEl.innerHTML = `
-      <span class="email-pill" style="user-select:none;">${getMaskedEmail()}</span>
-      <button type="button" onclick="revealEmailAddress()" class="btn btn-primary" style="padding:9px 16px; font-size:13px;">${c.revealBtn}</button>
-      <button type="button" onclick="copyEmail()" class="btn btn-ghost" style="padding:9px 16px; font-size:13px;">${c.copyBtn}</button>
-    `;
-  }
+
+  return `
+    <div class="page-view">
+      <header class="page-head">
+        <p class="kicker">${c.kicker}</p>
+        <h1 class="page-title">${c.title}</h1>
+        <p class="page-sub">${c.sub}</p>
+      </header>
+
+      <section class="contact-grid">
+        <div class="contact-card">
+          <div>
+            <p class="contact-label">${c.emailLabel}</p>
+            ${emailVal}
+          </div>
+          <div class="btn-row">${emailBtns}</div>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <p class="contact-label">${c.githubLabel}</p>
+            <p class="contact-val">github.com/Squenger</p>
+          </div>
+          <div class="btn-row">
+            <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="chip-link">
+              ${ICONS.github}<span>${c.openProfile}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <p class="contact-label">${c.linkedinLabel}</p>
+            <p class="contact-val">linkedin.com/in/aimine-meddeb-a2b352248</p>
+          </div>
+          <div class="btn-row">
+            <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="chip-link chip-link--paper">
+              ${ICONS.external}<span>${c.openProfile}</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  `;
 }
 
-function renderAll() {
-  renderNav();
-  renderHero();
-  renderAbout();
-  renderProjects();
-  renderInternship();
-  renderContact();
+function renderApp() {
+  updateTopbar();
+  const container = document.getElementById('app-view');
+  switch (currentRoute) {
+    case 'about':
+      container.innerHTML = renderAboutPage();
+      break;
+    case 'projects':
+      container.innerHTML = renderProjectsPage();
+      break;
+    case 'internship':
+      container.innerHTML = renderInternshipPage();
+      break;
+    case 'contact':
+      container.innerHTML = renderContactPage();
+      break;
+    case 'home':
+    default:
+      container.innerHTML = renderHomePage();
+      break;
+  }
 }
 
 function copyEmail() {
@@ -780,43 +1130,20 @@ function showToast(message) {
   toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2200);
 }
 
-function initScrollObservers() {
-  // Reveal animations on scroll
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+window.addEventListener('hashchange', () => {
+  currentRoute = getRouteFromHash();
+  renderApp();
+});
 
-  // Active floating navbar pill tracking on scroll
-  const sections = document.querySelectorAll('section[data-nav]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  const spyObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('data-nav');
-          navLinks.forEach((link) => {
-            link.classList.toggle('is-active', link.getAttribute('data-section') === id);
-          });
-        }
-      });
-    },
-    { rootMargin: '-38% 0px -52% 0px' }
-  );
-  sections.forEach((sec) => spyObserver.observe(sec));
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   initTheme();
   document.documentElement.lang = currentLang;
-  renderAll();
-  initScrollObservers();
-});
+  currentRoute = getRouteFromHash();
+  renderApp();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
