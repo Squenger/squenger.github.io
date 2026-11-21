@@ -3,1259 +3,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aimine Meddeb — Machine Learning, Computer Vision &amp; LLMs</title>
-  <!-- Editorial Typography: Newsreader (Serif), Inter (Sans), JetBrains Mono (Monospace) -->
+  <title>Aimine Meddeb — Machine Learning, 3D Vision, Robotics &amp; LLMs</title>
+  <meta
+    name="description"
+    content="Personal academic and research portfolio of Aimine Meddeb, Master MVA student at ENS Paris-Saclay working on 3D Vision, Robotics (PointACT), Multimodal LLMs (EgoBlind), and Generative AI."
+  />
+  <meta property="og:title" content="Aimine Meddeb — Machine Learning, 3D Vision &amp; Robotics" />
+  <meta
+    property="og:description"
+    content="Master MVA student at ENS Paris-Saclay &amp; IOGS Engineer. Research in 3D-aware VLA robotics, egocentric multimodal AI, computer vision, and generative modeling."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://squenger.github.io/" />
+
+  <!-- Editorial Typography: Fraunces (Optical Serif), Plus Jakarta Sans, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['Newsreader', 'Georgia', 'serif'],
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-          },
-          colors: {
-            paper: '#FAF9F6',
-            ink: '#141413',
-            muted: '#57534E',
-            rule: '#E7E5E4',
-            cobalt: '#1D4ED8',
-            charcoal: '#111110',
-            charcoalSurface: '#181816',
-            charcoalRule: '#292524',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    /* Subtle page view transition */
-    @keyframes pageFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(4px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .page-transition {
-      animation: pageFadeIn 0.22s ease-out forwards;
-    }
-    /* Editorial link underline behavior */
-    .editorial-link {
-      text-decoration: underline;
-      text-decoration-color: rgba(29, 78, 216, 0.35);
-      text-underline-offset: 3px;
-      transition: text-decoration-color 0.15s ease, color 0.15s ease;
-    }
-    .editorial-link:hover {
-      text-decoration-color: currentColor;
-    }
-    .dark .editorial-link {
-      text-decoration-color: rgba(96, 165, 250, 0.4);
-    }
-  </style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-paper text-ink dark:bg-charcoal dark:text-stone-100 font-sans antialiased selection:bg-cobalt/15 selection:text-cobalt dark:selection:bg-blue-400/20 dark:selection:text-blue-300 transition-colors duration-200 min-h-screen flex flex-col">
+<body>
+  <!-- Signature 4-pigment editorial top ribbon -->
+  <div class="editorial-ribbon" aria-hidden="true"></div>
 
-  <!-- Minimal Editorial Header -->
-  <header class="border-b border-rule dark:border-charcoalRule bg-paper/95 dark:bg-charcoal/95 sticky top-0 z-40 backdrop-blur-sm">
-    <div class="max-w-[780px] mx-auto px-5 sm:px-8 py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <!-- Author Name & Controls Row on Mobile -->
-      <div class="flex items-center justify-between">
-        <a href="#overview" onclick="navigateTo('overview', event)" class="font-serif text-xl sm:text-[22px] font-medium tracking-tight text-ink dark:text-stone-100 hover:opacity-80 transition-opacity">
-          Aimine Meddeb
-        </a>
-
-        <!-- Mobile Controls (Language + Theme) -->
-        <div class="flex sm:hidden items-center gap-3 font-mono text-xs">
-          <div role="group" aria-label="Language Switcher" class="flex items-center gap-1.5 text-muted dark:text-stone-400">
-            <button type="button" onclick="setLanguage('en')" class="lang-btn-en transition-colors">EN</button>
-            <span class="text-stone-300 dark:text-stone-700">/</span>
-            <button type="button" onclick="setLanguage('fr')" class="lang-btn-fr transition-colors">FR</button>
-          </div>
-          <button type="button" onclick="toggleTheme()" aria-label="Toggle theme" class="p-1.5 text-muted dark:text-stone-400 hover:text-ink dark:hover:text-stone-100 transition-colors">
-            <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-            </svg>
-            <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-            </svg>
-          </button>
+  <!-- Mobile Sticky Header (< 980px) -->
+  <header class="mobile-bar">
+    <div class="mobile-bar-top">
+      <a href="#overview" onclick="navigateTo('overview', event)" class="mobile-brand">
+        <span class="monogram-seal" style="width:34px; height:34px; font-size:14px; border-radius:9px;">AM</span>
+        <span>Aimine Meddeb</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" onclick="setLanguage('en')" class="lang-btn lang-btn-en">EN</button>
+          <button type="button" onclick="setLanguage('fr')" class="lang-btn lang-btn-fr">FR</button>
         </div>
-      </div>
-
-      <!-- Multi-Page Navigation Links & Desktop Controls -->
-      <div class="flex items-center justify-between sm:justify-end gap-5">
-        <nav aria-label="Primary Pages" class="flex items-center gap-4 sm:gap-5 text-[13.5px] overflow-x-auto pb-0.5 sm:pb-0">
-          <a href="#overview" data-route="overview" onclick="navigateTo('overview', event)" class="nav-link whitespace-nowrap py-1 border-b-2 transition-colors">
-            Overview
-          </a>
-          <a href="#projects" data-route="projects" onclick="navigateTo('projects', event)" class="nav-link whitespace-nowrap py-1 border-b-2 transition-colors">
-            Projects
-          </a>
-          <a href="#experience" data-route="experience" onclick="navigateTo('experience', event)" class="nav-link whitespace-nowrap py-1 border-b-2 transition-colors">
-            Experience
-          </a>
-          <a href="#education" data-route="education" onclick="navigateTo('education', event)" class="nav-link whitespace-nowrap py-1 border-b-2 transition-colors">
-            Education
-          </a>
-          <a href="#contact" data-route="contact" onclick="navigateTo('contact', event)" class="nav-link whitespace-nowrap py-1 border-b-2 transition-colors">
-            Contact
-          </a>
-        </nav>
-
-        <!-- Desktop Language & Theme Controls -->
-        <div class="hidden sm:flex items-center gap-3 pl-4 border-l border-rule dark:border-charcoalRule font-mono text-xs">
-          <div role="group" aria-label="Language Switcher" class="flex items-center gap-1.5 text-muted dark:text-stone-400">
-            <button type="button" onclick="setLanguage('en')" class="lang-btn-en transition-colors">EN</button>
-            <span class="text-stone-300 dark:text-stone-700">/</span>
-            <button type="button" onclick="setLanguage('fr')" class="lang-btn-fr transition-colors">FR</button>
-          </div>
-          <button type="button" onclick="toggleTheme()" aria-label="Toggle theme" class="p-1 text-muted dark:text-stone-400 hover:text-ink dark:hover:text-stone-100 transition-colors">
-            <svg class="w-3.5 h-3.5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-            </svg>
-            <svg class="w-3.5 h-3.5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Dedicated Multi-Page View Container -->
-  <main id="app-view" class="flex-1 max-w-[780px] w-full mx-auto px-5 sm:px-8 py-12 sm:py-16">
-    <!-- Active page content rendered dynamically -->
-  </main>
-
-  <!-- Understated Editorial Footer -->
-  <footer class="border-t border-rule dark:border-charcoalRule mt-auto">
-    <div class="max-w-[780px] mx-auto px-5 sm:px-8 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-muted dark:text-stone-400">
-      <span class="font-serif text-sm text-ink dark:text-stone-200">Aimine Meddeb</span>
-      <div class="flex flex-wrap items-center gap-4 font-mono text-[11px]">
-        <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="hover:text-ink dark:hover:text-stone-200 transition-colors">github.com/Squenger</a>
-        <span class="text-stone-300 dark:text-stone-700">&middot;</span>
-        <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="hover:text-ink dark:hover:text-stone-200 transition-colors">LinkedIn</a>
-        <span class="text-stone-300 dark:text-stone-700">&middot;</span>
-        <button type="button" onclick="openObfuscatedMail()" class="hover:text-ink dark:hover:text-stone-200 transition-colors">
-          aimine28 [at] gmail [dot] com
+        <button type="button" onclick="toggleTheme()" class="theme-btn" aria-label="Toggle color theme">
+          <span class="theme-label">Dark</span>
         </button>
       </div>
     </div>
-  </footer>
+    <nav class="mobile-nav" aria-label="Mobile Navigation">
+      <a href="#overview" data-route="overview" onclick="navigateTo('overview', event)" class="mobile-nav-link">Overview</a>
+      <a href="#projects" data-route="projects" onclick="navigateTo('projects', event)" class="mobile-nav-link">Projects</a>
+      <a href="#experience" data-route="experience" onclick="navigateTo('experience', event)" class="mobile-nav-link">Experience</a>
+      <a href="#education" data-route="education" onclick="navigateTo('education', event)" class="mobile-nav-link">Education</a>
+      <a href="#contact" data-route="contact" onclick="navigateTo('contact', event)" class="mobile-nav-link">Contact</a>
+    </nav>
+  </header>
 
-  <!-- Subtle Notification Toast -->
-  <div id="toast" role="status" aria-live="polite" class="fixed bottom-6 right-6 z-50 translate-y-3 opacity-0 pointer-events-none transition-all duration-200 border border-rule dark:border-charcoalRule bg-ink text-paper dark:bg-stone-100 dark:text-charcoal px-3.5 py-2 font-mono text-xs">
+  <!-- Widescreen 3-Zone Editorial Layout -->
+  <div class="app-shell">
+    <!-- Left Sticky Identity & Navigation Rail -->
+    <aside class="left-rail" aria-label="Profile and Primary Navigation">
+      <div class="identity-block">
+        <div class="monogram-row">
+          <a href="#overview" onclick="navigateTo('overview', event)" class="monogram-seal" aria-label="Aimine Meddeb Home">
+            AM
+          </a>
+          <span id="rail-location" class="location-tag">Paris-Saclay, FR</span>
+        </div>
+
+        <div>
+          <a href="#overview" onclick="navigateTo('overview', event)">
+            <div class="identity-name">Aimine Meddeb</div>
+          </a>
+          <p id="rail-role" class="identity-role">
+            MVA Master Student · <strong>ENS Paris-Saclay</strong>
+          </p>
+          <p id="rail-sub" class="identity-role" style="font-size:12px; color:var(--ink-muted); margin-top:6px;">
+            Machine Learning · 3D Vision · Robotics · LLMs
+          </p>
+        </div>
+      </div>
+
+      <nav class="rail-nav" aria-label="Primary Pages">
+        <a href="#overview" id="nav-overview" data-route="overview" onclick="navigateTo('overview', event)" class="rail-nav-link">
+          <span class="rail-nav-left">
+            <span class="rail-nav-num">01</span>
+            <span class="nav-label">Overview</span>
+          </span>
+          <span class="rail-nav-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#projects" id="nav-projects" data-route="projects" onclick="navigateTo('projects', event)" class="rail-nav-link">
+          <span class="rail-nav-left">
+            <span class="rail-nav-num">02</span>
+            <span class="nav-label">Projects</span>
+          </span>
+          <span class="rail-nav-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#experience" id="nav-experience" data-route="experience" onclick="navigateTo('experience', event)" class="rail-nav-link">
+          <span class="rail-nav-left">
+            <span class="rail-nav-num">03</span>
+            <span class="nav-label">Experience</span>
+          </span>
+          <span class="rail-nav-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#education" id="nav-education" data-route="education" onclick="navigateTo('education', event)" class="rail-nav-link">
+          <span class="rail-nav-left">
+            <span class="rail-nav-num">04</span>
+            <span class="nav-label">Education</span>
+          </span>
+          <span class="rail-nav-arrow" aria-hidden="true">→</span>
+        </a>
+        <a href="#contact" id="nav-contact" data-route="contact" onclick="navigateTo('contact', event)" class="rail-nav-link">
+          <span class="rail-nav-left">
+            <span class="rail-nav-num">05</span>
+            <span class="nav-label">Contact</span>
+          </span>
+          <span class="rail-nav-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+      <div class="rail-links">
+        <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="rail-social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          <span>github.com/Squenger</span>
+        </a>
+        <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="rail-social-link">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <button type="button" onclick="openObfuscatedMail()" class="rail-social-link" style="text-align:left;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span>aimine28 [at] gmail</span>
+        </button>
+      </div>
+
+      <div class="rail-controls">
+        <div class="lang-switch" role="group" aria-label="Language switcher">
+          <button type="button" id="btn-lang-en" onclick="setLanguage('en')" class="lang-btn lang-btn-en">EN</button>
+          <button type="button" id="btn-lang-fr" onclick="setLanguage('fr')" class="lang-btn lang-btn-fr">FR</button>
+        </div>
+        <button type="button" id="btn-theme-toggle" onclick="toggleTheme()" class="theme-btn" aria-label="Toggle color theme">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <span class="theme-label">Dark</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Center Stage -->
+    <div class="main-stage">
+      <main id="app-view" aria-live="polite">
+        <!-- Dynamic route content -->
+      </main>
+
+      <footer class="stage-footer">
+        <span style="font-family:var(--font-serif); font-size:14px; color:var(--ink-secondary);">Aimine Meddeb</span>
+        <div class="stage-footer-links">
+          <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <button type="button" onclick="openObfuscatedMail()">aimine28 [at] gmail [dot] com</button>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Right Sticky Contextual Margin Rail -->
+    <aside id="right-rail" class="right-rail" aria-label="Contextual Highlights">
+      <!-- Dynamic contextual aside content -->
+    </aside>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" role="status" aria-live="polite" class="toast">
     Copied to clipboard
   </div>
 
-  <script>
-    /**
-     * Anti-spam email parts assembled dynamically at runtime so no plain
-     * mailto: address appears in the static HTML source.
-     */
-    const MAIL_SEGMENTS = ['aimine28', 'gmail', 'com'];
-    let isEmailRevealed = false;
-
-    function getAssembledEmail() {
-      return `${MAIL_SEGMENTS[0]}@${MAIL_SEGMENTS[1]}.${MAIL_SEGMENTS[2]}`;
-    }
-
-    function getMaskedEmail() {
-      return `${MAIL_SEGMENTS[0]} [at] ${MAIL_SEGMENTS[1]} [dot] ${MAIL_SEGMENTS[2]}`;
-    }
-
-    function openObfuscatedMail() {
-      window.location.href = 'mailto:' + getAssembledEmail();
-    }
-
-    function revealEmailAddress() {
-      isEmailRevealed = true;
-      renderApp();
-    }
-
-    /**
-     * Institutional logos (official Wikimedia assets with automatic fallback
-     * to crisp inline architectural SVG crests/monograms so images never break).
-     */
-    const INSTITUTION_BRANDS = {
-      ens: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Logo_ENS_Paris-Saclay.svg/320px-Logo_ENS_Paris-Saclay.svg.png',
-        alt: 'ENS Paris-Saclay',
-        monogram: 'ENS',
-      },
-      upsaclay: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Logo_cartouche_Universit%C3%A9_Paris-Saclay.png/320px-Logo_cartouche_Universit%C3%A9_Paris-Saclay.png',
-        alt: 'Université Paris-Saclay',
-        monogram: 'UPS',
-      },
-      iogs: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Logo_Institut_d%27Optique_Graduate_School.svg/320px-Logo_Institut_d%27Optique_Graduate_School.svg.png',
-        alt: "Institut d'Optique (IOGS)",
-        monogram: 'IOGS',
-      },
-      saintlouis: {
-        url: null,
-        alt: 'Lycée Saint-Louis',
-        monogram: 'SL',
-      },
-      uqtr: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Logo_UQTR.svg/320px-Logo_UQTR.svg.png',
-        alt: 'Université du Québec à Trois-Rivières',
-        monogram: 'UQTR',
-      },
-      valeo: {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Valeo_Logo.svg/320px-Valeo_Logo.svg.png',
-        alt: 'VALEO',
-        monogram: 'VALEO',
-      },
-      aurea: {
-        url: null,
-        alt: 'Aurea Technology',
-        monogram: 'AT',
-      },
-      vitaim: {
-        url: null,
-        alt: 'VITAIM',
-        monogram: 'VIT',
-      },
-      parcdesloges: {
-        url: null,
-        alt: 'Lycée du Parc des Loges',
-        monogram: 'LPL',
-      },
-    };
-
-    function renderFallbackCrestSvg(monogram) {
-      return `
-        <svg class="w-11 h-7 text-ink dark:text-stone-200 shrink-0" viewBox="0 0 64 40" fill="none" aria-hidden="true">
-          <rect x="0.75" y="0.75" width="62.5" height="38.5" rx="2" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.2" />
-          <line x1="6" y1="32" x2="58" y2="32" stroke="currentColor" stroke-opacity="0.2" stroke-width="1" />
-          <text x="32" y="23" text-anchor="middle" fill="currentColor" font-family="JetBrains Mono, monospace" font-size="11" font-weight="500" letter-spacing="0.06em">${monogram}</text>
-        </svg>
-      `;
-    }
-
-    function renderInstitutionEmblem(brandKey) {
-      const brand = INSTITUTION_BRANDS[brandKey];
-      if (!brand) return '';
-      if (!brand.url) {
-        return `<div class="inline-flex items-center justify-center shrink-0">${renderFallbackCrestSvg(brand.monogram)}</div>`;
-      }
-      return `
-        <div class="inline-flex items-center justify-center shrink-0">
-          <img
-            src="${brand.url}"
-            alt="${brand.alt}"
-            loading="lazy"
-            class="h-7 w-auto max-w-[92px] object-contain dark:brightness-95 dark:contrast-110"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
-          />
-          <span style="display:none;" class="items-center justify-center">
-            ${renderFallbackCrestSvg(brand.monogram)}
-          </span>
-        </div>
-      `;
-    }
-
-    /**
-     * Strictly factual dataset sourced exclusively from Aimine Meddeb's CV.
-     * Supports instantaneous English ('en') and French ('fr') rendering.
-     */
-    const DATA = {
-      en: {
-        nav: {
-          overview: 'Overview',
-          projects: 'Projects',
-          experience: 'Experience',
-          education: 'Education',
-          contact: 'Contact',
-        },
-        overview: {
-          affiliation: 'MVA Master Student — ENS Paris-Saclay',
-          name: 'Aimine Meddeb',
-          summary:
-            'Final-year student in the Master MVA program at ENS Paris-Saclay, specializing in Machine Learning, Computer Vision, and LLM. I am eager to contribute to exciting, innovative research projects that push technological boundaries and advance the field.',
-          revealEmailLabel: 'Reveal email',
-          copyEmailLabel: 'Copy',
-          sectionsHeading: 'Directory',
-          cards: [
-            {
-              route: 'projects',
-              title: 'Research & Projects',
-              desc: 'Generative MIDI modeling with DPO, deep facial embeddings with Triplet Loss, and literary style transfer.',
-              action: 'Open Projects →',
-            },
-            {
-              route: 'experience',
-              title: 'Work Experience',
-              desc: 'Research internships at UQTR, VALEO, and Aurea Technology; technical leadership at VITAIM and oral examiner in CPGE.',
-              action: 'Open Experience →',
-            },
-            {
-              route: 'education',
-              title: 'Education',
-              desc: 'Master MVA at ENS Paris-Saclay, Master ATSI at Université Paris-Saclay, Engineering Degree at IOGS, and CPGE MPSI/MP*.',
-              action: 'Open Education →',
-            },
-          ],
-          areasHeading: 'Technical Skills & Languages',
-        },
-        projectsPage: {
-          title: 'Research & Projects',
-          subtitle:
-            'Selected implementations and research work in generative modeling, preference optimization, and computer vision.',
-          filters: [
-            { id: 'all', label: 'All' },
-            { id: 'vision', label: 'Vision & 3D' },
-            { id: 'nlp', label: 'NLP & Generative' },
-          ],
-          items: [
-            {
-              year: '2026',
-              category: 'nlp',
-              categoryLabel: 'NLP & Generative',
-              title: 'AI-Driven Music Generator',
-              description:
-                'Designed a generative MIDI model utilizing a Transformer architecture with Direct Preference Optimization (DPO). Repurposed a pre-trained MidiBert network into a reward-based "music judge" to enhance harmonic quality and consistency.',
-              tags: ['Transformer', 'DPO', 'MidiBert', 'Generative MIDI'],
-              links: [
-                { label: 'Music Model', url: 'https://github.com/Squenger/Music_Generation_Transformers' },
-                { label: 'MidiBert Judge', url: 'https://github.com/Squenger/converting-MidiBERT-into-a-Judge' },
-              ],
-            },
-            {
-              year: '2026',
-              category: 'vision',
-              categoryLabel: 'Vision & 3D',
-              title: 'Deep Learning Facial Recognition System',
-              description:
-                'Developed an end-to-end vision pipeline using Convolutional Neural Networks and Triplet Loss. The system achieved 90% accuracy in learning robust facial embeddings for automated tagging in photography.',
-              tags: ['CNN', 'Triplet Loss', 'Facial Embeddings', 'Computer Vision'],
-              links: [
-                {
-                  label: 'Recognition System',
-                  url: 'https://github.com/Squenger/PAI_2025_Leonard_Aimine_Reconnaissance_faciale_automatisee',
-                },
-                {
-                  label: 'DL Model',
-                  url: 'https://github.com/Squenger/Face_recognition_Deep_Learning_triplet_loss',
-                },
-              ],
-            },
-            {
-              year: '2026',
-              category: 'nlp',
-              categoryLabel: 'NLP & Generative',
-              title: 'Generative Literary Style Transfer',
-              description:
-                'Engineered a Decoder-only Transformer for stylistic generation. Trained on classical poetry and Shakespearean plays to capture unique rhythmic patterns and linguistic nuances.',
-              tags: ['Decoder-only Transformer', 'Stylistic Generation', 'NLP'],
-              links: [
-                { label: 'Poem Generator', url: 'https://github.com/Squenger/French-poem-generator' },
-              ],
-            },
-          ],
-        },
-        experiencePage: {
-          title: 'Work Experience',
-          subtitle: 'Research internships, industrial computer vision, technical leadership, and academic examination.',
-          items: [
-            {
-              period: 'Mar 2026 – Aug 2026',
-              role: 'Research Internship',
-              institution: 'Université du Québec à Trois-Rivières',
-              brand: 'uqtr',
-              description:
-                'Near real-time 3D reconstruction based on deep learning for micro-CT integration into a 3D printing digital twin. Engineered mathematical transformations for cross-modal data correlation and designed a generative neural network architecture to synthesize high-resolution volumetric data.',
-            },
-            {
-              period: 'Jan 2026 – Mar 2026',
-              role: 'Industrial Image Correction',
-              institution: 'VALEO',
-              brand: 'valeo',
-              description:
-                'Developed a computer vision pipeline for automated image registration and centering using ORB and RANSAC. Optimized the algorithm for industrial-scale quality control of car logos, achieving a precision error rate of less than 0.5%.',
-            },
-            {
-              period: 'May 2025 – Aug 2025',
-              role: 'Internship',
-              institution: 'Aurea Technology',
-              brand: 'aurea',
-              description:
-                'Designed a source of entangled photons for satellite-based quantum communications (ESA TeQuantS). Developed an EDFA system achieving 10 dB signal amplification.',
-            },
-            {
-              period: 'Sept 2024 – Jul 2025',
-              role: 'Co-founder, innovation program',
-              institution: 'VITAIM',
-              brand: 'vitaim',
-              description:
-                'Lead technical development for a startup specializing in post-quantum cryptography (PQC). Winner of the Paris-Saclay Entrepreneurship Pitch Competition.',
-            },
-            {
-              period: 'Sept 2024 – Jun 2025',
-              role: 'Oral Examiner in Preparatory Class',
-              institution: 'Lycée du Parc des Loges',
-              brand: 'parcdesloges',
-              description:
-                'Mathematics examiner for engineering school preparatory classes (PSI).',
-            },
-          ],
-        },
-        educationPage: {
-          title: 'Education',
-          subtitle: 'Academic degrees, applied mathematics, computer vision, and optical engineering.',
-          items: [
-            {
-              period: '2026 – present',
-              degree: 'Master MVA',
-              institution: 'ENS Paris-Saclay',
-              brand: 'ens',
-              details:
-                'Master of Applied Mathematics focusing on Machine Learning and Artificial Intelligence.',
-              courses:
-                'Courses: Time Series Learning, Optimization, Advanced Learning for Text and Graph Data, Computer Vision, Deep Learning, Robotics, Foundations of Large Language Models, Computational Statistics.',
-            },
-            {
-              period: '2024 – 2026',
-              degree: 'Master ATSI',
-              institution: 'Université Paris-Saclay',
-              brand: 'upsaclay',
-              details:
-                'Specialized in Computer Vision, Deep Learning architectures, and Applied Optimization.',
-              courses: null,
-            },
-            {
-              period: '2023 – 2026',
-              degree: 'Engineering Student',
-              institution: "Institut d'Optique (IOGS)",
-              brand: 'iogs',
-              details: 'Mathematical modeling, Image Processing, Quantum physics. GPA: 4/4.',
-              courses: null,
-            },
-            {
-              period: '2023 – 2024',
-              degree: "Mathematics Bachelor's Degree",
-              institution: 'Université Paris-Saclay',
-              brand: 'upsaclay',
-              details: 'Analysis, algebra, probability.',
-              courses: null,
-            },
-            {
-              period: '2021 – 2023',
-              degree: 'Preparatory Class (CPGE MPSI/MP*)',
-              institution: 'Lycée Saint-Louis, Paris',
-              brand: 'saintlouis',
-              details: 'Intensive preparatory classes in Mathematics and Computer Science.',
-              courses: null,
-            },
-          ],
-        },
-        skills: [
-          {
-            category: 'Machine Learning & AI',
-            items: 'LLM, DPO, Generative AI, Sequence Modeling, PyTorch, Scikit-learn',
-          },
-          {
-            category: 'Computer Vision & 3D',
-            items: '3D Vision, Volumetric Reconstruction, Image Registration, Point Cloud Processing, OpenCV',
-          },
-          {
-            category: 'Robotics & Optimization',
-            items: 'Control Systems, Mathematical Modeling, Time Series Analysis, Git, LaTeX',
-          },
-          {
-            category: 'Languages',
-            items: 'French (native), English (TOEIC: C1), German (beginner)',
-          },
-        ],
-        contactPage: {
-          title: 'Contact',
-          subtitle:
-            'For research inquiries, collaborations, or academic correspondence, please reach out via email or through the profiles below.',
-          emailLabel: 'Email',
-          githubLabel: 'GitHub',
-          linkedinLabel: 'LinkedIn',
-          revealAction: 'Reveal address',
-          sendAction: 'Open mail client',
-          copyAction: 'Copy address',
-          copiedToast: 'Email address copied to clipboard',
-        },
-      },
-      fr: {
-        nav: {
-          overview: 'Présentation',
-          projects: 'Projets',
-          experience: 'Expériences',
-          education: 'Formation',
-          contact: 'Contact',
-        },
-        overview: {
-          affiliation: 'Étudiant en Master MVA — ENS Paris-Saclay',
-          name: 'Aimine Meddeb',
-          summary:
-            "Étudiant en dernière année du Master MVA à l'ENS Paris-Saclay, spécialisé en Machine Learning, Vision par Ordinateur et LLM. Je souhaite contribuer à des projets de recherche innovants qui repoussent les frontières technologiques et font avancer le domaine.",
-          revealEmailLabel: "Afficher l'email",
-          copyEmailLabel: 'Copier',
-          sectionsHeading: 'Navigation',
-          cards: [
-            {
-              route: 'projects',
-              title: 'Recherche & Projets',
-              desc: 'Génération musicale MIDI par DPO, reconnaissance faciale profonde par Triplet Loss et transfert de style littéraire.',
-              action: 'Voir les Projets →',
-            },
-            {
-              route: 'experience',
-              title: 'Expériences Professionnelles',
-              desc: 'Stages de recherche à l’UQTR, VALEO et Aurea Technology ; co-fondateur chez VITAIM et examinateur oral en CPGE.',
-              action: 'Voir les Expériences →',
-            },
-            {
-              route: 'education',
-              title: 'Formation',
-              desc: 'Master MVA à l’ENS Paris-Saclay, Master ATSI à l’Université Paris-Saclay, diplôme d’ingénieur IOGS et CPGE MPSI/MP*.',
-              action: 'Voir la Formation →',
-            },
-          ],
-          areasHeading: 'Compétences Techniques & Langues',
-        },
-        projectsPage: {
-          title: 'Recherche & Projets',
-          subtitle:
-            'Sélection de travaux et implémentations en modélisation générative, optimisation par préférences et vision par ordinateur.',
-          filters: [
-            { id: 'all', label: 'Tous' },
-            { id: 'vision', label: 'Vision & 3D' },
-            { id: 'nlp', label: 'NLP & Génératif' },
-          ],
-          items: [
-            {
-              year: '2026',
-              category: 'nlp',
-              categoryLabel: 'NLP & Génératif',
-              title: 'AI-Driven Music Generator',
-              description:
-                "Conception d'un modèle génératif MIDI reposant sur une architecture Transformer avec Direct Preference Optimization (DPO). Réutilisation d'un réseau MidiBert pré-entraîné en « juge musical » basé sur la récompense pour améliorer la qualité harmonique et la cohérence.",
-              tags: ['Transformer', 'DPO', 'MidiBert', 'Generative MIDI'],
-              links: [
-                { label: 'Music Model', url: 'https://github.com/Squenger/Music_Generation_Transformers' },
-                { label: 'MidiBert Judge', url: 'https://github.com/Squenger/converting-MidiBERT-into-a-Judge' },
-              ],
-            },
-            {
-              year: '2026',
-              category: 'vision',
-              categoryLabel: 'Vision & 3D',
-              title: 'Deep Learning Facial Recognition System',
-              description:
-                "Développement d'un pipeline de vision de bout en bout utilisant des réseaux de neurones convolutifs (CNN) et la Triplet Loss. Précision de 90 % atteinte dans l'apprentissage d'embeddings faciaux robustes pour l'étiquetage automatisé en photographie.",
-              tags: ['CNN', 'Triplet Loss', 'Facial Embeddings', 'Computer Vision'],
-              links: [
-                {
-                  label: 'Recognition System',
-                  url: 'https://github.com/Squenger/PAI_2025_Leonard_Aimine_Reconnaissance_faciale_automatisee',
-                },
-                {
-                  label: 'DL Model',
-                  url: 'https://github.com/Squenger/Face_recognition_Deep_Learning_triplet_loss',
-                },
-              ],
-            },
-            {
-              year: '2026',
-              category: 'nlp',
-              categoryLabel: 'NLP & Génératif',
-              title: 'Generative Literary Style Transfer',
-              description:
-                "Conception d'un Transformer Decoder-only pour la génération stylistique. Entraîné sur de la poésie classique et des pièces de Shakespeare pour capturer des motifs rythmiques et des nuances linguistiques uniques.",
-              tags: ['Decoder-only Transformer', 'Stylistic Generation', 'NLP'],
-              links: [
-                { label: 'Poem Generator', url: 'https://github.com/Squenger/French-poem-generator' },
-              ],
-            },
-          ],
-        },
-        experiencePage: {
-          title: 'Expériences Professionnelles',
-          subtitle: 'Stages de recherche, vision par ordinateur industrielle, responsabilités techniques et enseignement.',
-          items: [
-            {
-              period: 'Mars 2026 – Août 2026',
-              role: 'Stage de Recherche',
-              institution: 'Université du Québec à Trois-Rivières',
-              brand: 'uqtr',
-              description:
-                "Reconstruction 3D quasi temps réel basée sur le deep learning pour l'intégration micro-CT dans un jumeau numérique d'impression 3D. Conception de transformations mathématiques pour la corrélation de données cross-modales et d'une architecture de réseau de neurones génératif pour synthétiser des données volumétriques haute résolution.",
-            },
-            {
-              period: 'Janv. 2026 – Mars 2026',
-              role: "Correction d'Images Industrielles",
-              institution: 'VALEO',
-              brand: 'valeo',
-              description:
-                "Développement d'un pipeline de vision par ordinateur pour le recalage et le centrage automatisés d'images via ORB et RANSAC. Optimisation de l'algorithme pour le contrôle qualité industriel de logos automobiles, atteignant un taux d'erreur inférieur à 0,5 %.",
-            },
-            {
-              period: 'Mai 2025 – Août 2025',
-              role: 'Stage',
-              institution: 'Aurea Technology',
-              brand: 'aurea',
-              description:
-                "Conception d'une source de photons intriqués pour les communications quantiques par satellite (ESA TeQuantS). Développement d'un système EDFA atteignant une amplification du signal de 10 dB.",
-            },
-            {
-              period: 'Sept. 2024 – Juil. 2025',
-              role: 'Co-fondateur, programme innovation',
-              institution: 'VITAIM',
-              brand: 'vitaim',
-              description:
-                "Direction du développement technique d'une startup spécialisée dans la cryptographie post-quantique (PQC). Lauréat du concours de pitch entrepreneurial Paris-Saclay.",
-            },
-            {
-              period: 'Sept. 2024 – Juin 2025',
-              role: 'Examinateur Oral en Classe Préparatoire',
-              institution: 'Lycée du Parc des Loges',
-              brand: 'parcdesloges',
-              description:
-                "Examinateur oral en mathématiques pour les classes préparatoires aux grandes écoles d'ingénieurs (PSI).",
-            },
-          ],
-        },
-        educationPage: {
-          title: 'Formation',
-          subtitle: 'Diplômes académiques, mathématiques appliquées, vision par ordinateur et ingénierie optique.',
-          items: [
-            {
-              period: '2026 – présent',
-              degree: 'Master MVA',
-              institution: 'ENS Paris-Saclay',
-              brand: 'ens',
-              details:
-                "Master de Mathématiques Appliquées axé sur le Machine Learning et l'Intelligence Artificielle.",
-              courses:
-                'Cours : Time Series Learning, Optimization, Advanced Learning for Text and Graph Data, Computer Vision, Deep Learning, Robotics, Foundations of Large Language Models, Computational Statistics.',
-            },
-            {
-              period: '2024 – 2026',
-              degree: 'Master ATSI',
-              institution: 'Université Paris-Saclay',
-              brand: 'upsaclay',
-              details:
-                'Spécialisé en Vision par Ordinateur, architectures de Deep Learning et Optimisation Appliquée.',
-              courses: null,
-            },
-            {
-              period: '2023 – 2026',
-              degree: 'Élève Ingénieur',
-              institution: "Institut d'Optique (IOGS)",
-              brand: 'iogs',
-              details: 'Modélisation mathématique, Traitement d’images, Physique quantique. GPA : 4/4.',
-              courses: null,
-            },
-            {
-              period: '2023 – 2024',
-              degree: 'Licence de Mathématiques',
-              institution: 'Université Paris-Saclay',
-              brand: 'upsaclay',
-              details: 'Analyse, algèbre, probabilités.',
-              courses: null,
-            },
-            {
-              period: '2021 – 2023',
-              degree: 'Classes Préparatoires (CPGE MPSI/MP*)',
-              institution: 'Lycée Saint-Louis, Paris',
-              brand: 'saintlouis',
-              details: 'Classes préparatoires intensives en Mathématiques et Informatique.',
-              courses: null,
-            },
-          ],
-        },
-        skills: [
-          {
-            category: 'Machine Learning & AI',
-            items: 'LLM, DPO, Generative AI, Sequence Modeling, PyTorch, Scikit-learn',
-          },
-          {
-            category: 'Computer Vision & 3D',
-            items: '3D Vision, Volumetric Reconstruction, Image Registration, Point Cloud Processing, OpenCV',
-          },
-          {
-            category: 'Robotics & Optimization',
-            items: 'Control Systems, Mathematical Modeling, Time Series Analysis, Git, LaTeX',
-          },
-          {
-            category: 'Langues',
-            items: 'Français (natif), Anglais (TOEIC: C1), Allemand (débutant)',
-          },
-        ],
-        contactPage: {
-          title: 'Contact',
-          subtitle:
-            'Pour toute prise de contact académique, proposition de recherche ou échange professionnel, vous pouvez me joindre par email ou via les profils ci-dessous.',
-          emailLabel: 'Email',
-          githubLabel: 'GitHub',
-          linkedinLabel: 'LinkedIn',
-          revealAction: "Afficher l'adresse",
-          sendAction: 'Ouvrir la messagerie',
-          copyAction: "Copier l'adresse",
-          copiedToast: 'Adresse email copiée',
-        },
-      },
-    };
-
-    const VALID_ROUTES = ['overview', 'projects', 'experience', 'education', 'contact'];
-    let currentRoute = 'overview';
-    let currentLang = 'en';
-    let currentProjectFilter = 'all';
-
-    /**
-     * Resolves initial route from URL hash or defaults to 'overview'.
-     */
-    function getRouteFromHash() {
-      const hash = window.location.hash.replace('#', '').trim().toLowerCase();
-      return VALID_ROUTES.includes(hash) ? hash : 'overview';
-    }
-
-    /**
-     * Navigates cleanly to a dedicated page view and updates URL hash.
-     */
-    function navigateTo(route, event) {
-      if (event) {
-        event.preventDefault();
-      }
-      if (!VALID_ROUTES.includes(route)) {
-        route = 'overview';
-      }
-      currentRoute = route;
-      if (window.location.hash !== '#' + route) {
-        window.history.pushState({ route }, '', '#' + route);
-      }
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      renderApp();
-    }
-
-    /**
-     * Switches language between 'en' and 'fr' and re-renders active view immediately.
-     */
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang;
-      renderApp();
-    }
-
-    /**
-     * Updates active filter tab on the Research & Projects page.
-     */
-    function setProjectFilter(filterId) {
-      currentProjectFilter = filterId;
-      renderApp();
-    }
-
-    /**
-     * Toggles light/dark color theme.
-     */
-    function toggleTheme() {
-      document.documentElement.classList.toggle('dark');
-    }
-
-    /**
-     * Updates header navigation active underline & language button states.
-     */
-    function updateHeaderState() {
-      const t = DATA[currentLang].nav;
-
-      document.querySelectorAll('.nav-link').forEach((link) => {
-        const route = link.getAttribute('data-route');
-        if (t[route]) {
-          link.textContent = t[route];
-        }
-        const isActive = route === currentRoute;
-        if (isActive) {
-          link.classList.add('border-cobalt', 'dark:border-blue-400', 'text-ink', 'dark:text-stone-100', 'font-medium');
-          link.classList.remove('border-transparent', 'text-muted', 'dark:text-stone-400');
-        } else {
-          link.classList.remove('border-cobalt', 'dark:border-blue-400', 'text-ink', 'dark:text-stone-100', 'font-medium');
-          link.classList.add('border-transparent', 'text-muted', 'dark:text-stone-400', 'hover:text-ink', 'dark:hover:text-stone-200');
-        }
-      });
-
-      document.querySelectorAll('.lang-btn-en').forEach((btn) => {
-        if (currentLang === 'en') {
-          btn.classList.add('text-ink', 'dark:text-stone-100', 'font-semibold', 'underline', 'underline-offset-4');
-        } else {
-          btn.classList.remove('text-ink', 'dark:text-stone-100', 'font-semibold', 'underline', 'underline-offset-4');
-        }
-      });
-
-      document.querySelectorAll('.lang-btn-fr').forEach((btn) => {
-        if (currentLang === 'fr') {
-          btn.classList.add('text-ink', 'dark:text-stone-100', 'font-semibold', 'underline', 'underline-offset-4');
-        } else {
-          btn.classList.remove('text-ink', 'dark:text-stone-100', 'font-semibold', 'underline', 'underline-offset-4');
-        }
-      });
-    }
-
-    /**
-     * Page 1: Overview (#overview)
-     */
-    function renderOverviewPage() {
-      const ov = DATA[currentLang].overview;
-      const skills = DATA[currentLang].skills;
-
-      const cardsHtml = ov.cards
-        .map(
-          (card) => `
-          <div class="border-t border-ink dark:border-stone-300 pt-4 flex flex-col justify-between">
-            <div>
-              <h3 class="font-serif text-lg font-medium text-ink dark:text-stone-100 mb-2">
-                ${card.title}
-              </h3>
-              <p class="text-[13.5px] text-muted dark:text-stone-400 leading-relaxed mb-4">
-                ${card.desc}
-              </p>
-            </div>
-            <div>
-              <a href="#${card.route}" onclick="navigateTo('${card.route}', event)" class="font-mono text-xs text-cobalt dark:text-blue-400 editorial-link">
-                ${card.action}
-              </a>
-            </div>
-          </div>
-        `
-        )
-        .join('');
-
-      const domainsHtml = skills
-        .map(
-          (row) => `
-          <div class="py-3.5 grid grid-cols-1 sm:grid-cols-[195px_1fr] gap-1 sm:gap-6 border-b border-rule dark:border-charcoalRule last:border-b-0">
-            <dt class="font-mono text-xs text-muted dark:text-stone-400">${row.category}</dt>
-            <dd class="text-sm text-ink dark:text-stone-200 leading-relaxed">${row.items}</dd>
-          </div>
-        `
-        )
-        .join('');
-
-      const emailInlineHtml = isEmailRevealed
-        ? `<button type="button" onclick="openObfuscatedMail()" class="editorial-link text-ink dark:text-stone-100">${getAssembledEmail()}</button>
-           <button type="button" onclick="copyEmail()" class="ml-1.5 text-muted dark:text-stone-400 hover:text-ink dark:hover:text-stone-200 underline underline-offset-2">[${ov.copyEmailLabel}]</button>`
-        : `<button type="button" onclick="revealEmailAddress()" class="editorial-link text-ink dark:text-stone-100" title="${ov.revealEmailLabel}">${getMaskedEmail()}</button>`;
-
-      return `
-        <div class="page-transition space-y-12">
-          <!-- Academic Bio Header -->
-          <section>
-            <p class="font-mono text-xs text-cobalt dark:text-blue-400 tracking-wide mb-3">
-              ${ov.affiliation}
-            </p>
-            <h1 class="font-serif text-3xl sm:text-[42px] font-medium tracking-tight text-ink dark:text-stone-100 leading-[1.15] mb-6">
-              ${ov.name}
-            </h1>
-            <p class="text-[16px] sm:text-[17px] leading-[1.7] text-stone-700 dark:text-stone-300 mb-7">
-              ${ov.summary}
-            </p>
-
-            <!-- Inline Editorial Links (No phone number, anti-spam obfuscated email) -->
-            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-ink dark:text-stone-200">
-              <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="editorial-link text-cobalt dark:text-blue-400">
-                GitHub (Squenger)
-              </a>
-              <span class="text-stone-300 dark:text-stone-700">/</span>
-              <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="editorial-link text-cobalt dark:text-blue-400">
-                LinkedIn
-              </a>
-              <span class="text-stone-300 dark:text-stone-700">/</span>
-              <span>${emailInlineHtml}</span>
-            </div>
-          </section>
-
-          <hr class="border-rule dark:border-charcoalRule" />
-
-          <!-- Selected Page Directory -->
-          <section>
-            <h2 class="font-mono text-xs uppercase tracking-wider text-muted dark:text-stone-400 mb-6">
-              ${ov.sectionsHeading}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-7">
-              ${cardsHtml}
-            </div>
-          </section>
-
-          <hr class="border-rule dark:border-charcoalRule" />
-
-          <!-- Core Domains & Languages -->
-          <section>
-            <h2 class="font-mono text-xs uppercase tracking-wider text-muted dark:text-stone-400 mb-3">
-              ${ov.areasHeading}
-            </h2>
-            <dl class="divide-y divide-rule dark:divide-charcoalRule border-t border-b border-rule dark:border-charcoalRule">
-              ${domainsHtml}
-            </dl>
-          </section>
-        </div>
-      `;
-    }
-
-    /**
-     * Page 2: Research & Projects (#projects)
-     */
-    function renderProjectsPage() {
-      const page = DATA[currentLang].projectsPage;
-      const filteredItems = page.items.filter(
-        (item) => currentProjectFilter === 'all' || item.category === currentProjectFilter
-      );
-
-      const filterTabsHtml = page.filters
-        .map((tab) => {
-          const isActive = tab.id === currentProjectFilter;
-          const classes = isActive
-            ? 'border-ink dark:border-stone-100 text-ink dark:text-stone-100 font-medium'
-            : 'border-transparent text-muted dark:text-stone-400 hover:text-ink dark:hover:text-stone-200';
-          return `
-            <button
-              type="button"
-              onclick="setProjectFilter('${tab.id}')"
-              class="pb-2 border-b-2 font-mono text-xs transition-colors ${classes}">
-              ${tab.label}
-            </button>
-          `;
-        })
-        .join('');
-
-      const entriesHtml = filteredItems
-        .map((project) => {
-          const linksHtml = project.links
-            .map(
-              (link) => `
-              <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="font-mono text-xs text-cobalt dark:text-blue-400 editorial-link">
-                [GitHub: ${link.label}]
-              </a>
-            `
-            )
-            .join('<span class="text-stone-300 dark:text-stone-700 mx-2">&middot;</span>');
-
-          return `
-            <article class="py-8 border-b border-rule dark:border-charcoalRule first:pt-2 last:border-b-0">
-              <div class="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 mb-2">
-                <span class="font-mono text-xs text-muted dark:text-stone-400">${project.year}</span>
-                <span class="text-stone-300 dark:text-stone-700">&middot;</span>
-                <span class="font-mono text-xs text-muted dark:text-stone-400">${project.categoryLabel}</span>
-              </div>
-
-              <h2 class="font-serif text-2xl font-medium text-ink dark:text-stone-100 mb-3 leading-snug">
-                ${project.title}
-              </h2>
-
-              <p class="text-[15px] text-stone-700 dark:text-stone-300 leading-[1.7] mb-4">
-                ${project.description}
-              </p>
-
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-                <div class="font-mono text-xs text-muted dark:text-stone-400">
-                  ${project.tags.join(' &middot; ')}
-                </div>
-                <div class="flex flex-wrap items-center">
-                  ${linksHtml}
-                </div>
-              </div>
-            </article>
-          `;
-        })
-        .join('');
-
-      return `
-        <div class="page-transition">
-          <header class="mb-8">
-            <h1 class="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-stone-100 mb-3">
-              ${page.title}
-            </h1>
-            <p class="text-[15px] text-muted dark:text-stone-400 leading-relaxed">
-              ${page.subtitle}
-            </p>
-          </header>
-
-          <!-- Underlined Minimal Category Tabs -->
-          <div class="flex items-center gap-6 border-b border-rule dark:border-charcoalRule mb-6">
-            ${filterTabsHtml}
-          </div>
-
-          <!-- Editorial Entries List -->
-          <div>
-            ${entriesHtml}
-          </div>
-        </div>
-      `;
-    }
-
-    /**
-     * Page 3: Work Experience (#experience)
-     */
-    function renderExperiencePage() {
-      const page = DATA[currentLang].experiencePage;
-
-      const entriesHtml = page.items
-        .map(
-          (exp) => `
-          <article class="py-7 grid grid-cols-1 sm:grid-cols-[175px_1fr] gap-3 sm:gap-8 border-b border-rule dark:border-charcoalRule first:pt-2 last:border-b-0">
-            <div class="font-mono text-xs text-muted dark:text-stone-400 pt-1">
-              ${exp.period}
-            </div>
-            <div>
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <h2 class="text-[16px] font-semibold text-ink dark:text-stone-100 leading-snug">
-                    ${exp.role}
-                  </h2>
-                  <p class="text-sm text-muted dark:text-stone-400 mt-0.5">
-                    ${exp.institution}
-                  </p>
-                </div>
-                ${renderInstitutionEmblem(exp.brand)}
-              </div>
-              <p class="text-[14.5px] text-stone-700 dark:text-stone-300 leading-[1.7] mt-3">
-                ${exp.description}
-              </p>
-            </div>
-          </article>
-        `
-        )
-        .join('');
-
-      return `
-        <div class="page-transition">
-          <header class="mb-8 pb-6 border-b border-ink dark:border-stone-300">
-            <h1 class="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-stone-100 mb-3">
-              ${page.title}
-            </h1>
-            <p class="text-[15px] text-muted dark:text-stone-400 leading-relaxed">
-              ${page.subtitle}
-            </p>
-          </header>
-
-          <div>
-            ${entriesHtml}
-          </div>
-        </div>
-      `;
-    }
-
-    /**
-     * Page 4: Education (#education)
-     */
-    function renderEducationPage() {
-      const page = DATA[currentLang].educationPage;
-
-      const entriesHtml = page.items
-        .map((edu) => {
-          const coursesHtml = edu.courses
-            ? `<p class="font-mono text-xs text-muted dark:text-stone-400 leading-relaxed mt-2.5">${edu.courses}</p>`
-            : '';
-
-          return `
-            <article class="py-7 grid grid-cols-1 sm:grid-cols-[175px_1fr] gap-3 sm:gap-8 border-b border-rule dark:border-charcoalRule first:pt-2 last:border-b-0">
-              <div class="font-mono text-xs text-muted dark:text-stone-400 pt-1">
-                ${edu.period}
-              </div>
-              <div>
-                <div class="flex items-start justify-between gap-4">
-                  <div>
-                    <h2 class="text-[16px] font-semibold text-ink dark:text-stone-100 leading-snug">
-                      ${edu.degree}
-                    </h2>
-                    <p class="text-sm text-muted dark:text-stone-400 mt-0.5">
-                      ${edu.institution}
-                    </p>
-                  </div>
-                  ${renderInstitutionEmblem(edu.brand)}
-                </div>
-                <p class="text-[14.5px] text-stone-700 dark:text-stone-300 leading-relaxed mt-2.5">
-                  ${edu.details}
-                </p>
-                ${coursesHtml}
-              </div>
-            </article>
-          `;
-        })
-        .join('');
-
-      return `
-        <div class="page-transition">
-          <header class="mb-8 pb-6 border-b border-ink dark:border-stone-300">
-            <h1 class="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-stone-100 mb-3">
-              ${page.title}
-            </h1>
-            <p class="text-[15px] text-muted dark:text-stone-400 leading-relaxed">
-              ${page.subtitle}
-            </p>
-          </header>
-
-          <div>
-            ${entriesHtml}
-          </div>
-        </div>
-      `;
-    }
-
-    /**
-     * Page 5: Contact (#contact) — Anti-spam email protection, no phone number
-     */
-    function renderContactPage() {
-      const page = DATA[currentLang].contactPage;
-
-      const emailRowContent = isEmailRevealed
-        ? `
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <button type="button" onclick="openObfuscatedMail()" class="font-mono text-sm text-ink dark:text-stone-100 editorial-link">
-              ${getAssembledEmail()}
-            </button>
-            <div class="flex items-center gap-3 font-mono text-xs">
-              <button type="button" onclick="openObfuscatedMail()" class="text-cobalt dark:text-blue-400 editorial-link">
-                [${page.sendAction}]
-              </button>
-              <button type="button" onclick="copyEmail()" class="text-cobalt dark:text-blue-400 editorial-link">
-                [${page.copyAction}]
-              </button>
-            </div>
-          </div>
-        `
-        : `
-          <div class="flex flex-wrap items-center justify-between gap-3">
-            <span class="font-mono text-sm text-ink dark:text-stone-100 select-none">
-              ${getMaskedEmail()}
-            </span>
-            <div class="flex items-center gap-3 font-mono text-xs">
-              <button type="button" onclick="revealEmailAddress()" class="text-cobalt dark:text-blue-400 editorial-link">
-                [${page.revealAction}]
-              </button>
-              <button type="button" onclick="copyEmail()" class="text-cobalt dark:text-blue-400 editorial-link">
-                [${page.copyAction}]
-              </button>
-            </div>
-          </div>
-        `;
-
-      return `
-        <div class="page-transition">
-          <header class="mb-10">
-            <h1 class="font-serif text-3xl sm:text-4xl font-medium tracking-tight text-ink dark:text-stone-100 mb-4">
-              ${page.title}
-            </h1>
-            <p class="text-[16px] text-stone-700 dark:text-stone-300 leading-[1.7] max-w-2xl">
-              ${page.subtitle}
-            </p>
-          </header>
-
-          <dl class="border-t border-b border-rule dark:border-charcoalRule divide-y divide-rule dark:divide-charcoalRule">
-            <!-- Anti-Spam Protected Email -->
-            <div class="py-5 grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 items-baseline">
-              <dt class="font-mono text-xs text-muted dark:text-stone-400">${page.emailLabel}</dt>
-              <dd>${emailRowContent}</dd>
-            </div>
-
-            <!-- GitHub -->
-            <div class="py-5 grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 items-baseline">
-              <dt class="font-mono text-xs text-muted dark:text-stone-400">${page.githubLabel}</dt>
-              <dd>
-                <a href="https://github.com/Squenger" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-cobalt dark:text-blue-400 editorial-link">
-                  github.com/Squenger
-                </a>
-              </dd>
-            </div>
-
-            <!-- LinkedIn -->
-            <div class="py-5 grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-2 sm:gap-6 items-baseline">
-              <dt class="font-mono text-xs text-muted dark:text-stone-400">${page.linkedinLabel}</dt>
-              <dd>
-                <a href="https://linkedin.com/in/aimine-meddeb-a2b352248/" target="_blank" rel="noopener noreferrer" class="font-mono text-sm text-cobalt dark:text-blue-400 editorial-link">
-                  linkedin.com/in/aimine-meddeb-a2b352248
-                </a>
-              </dd>
-            </div>
-          </dl>
-        </div>
-      `;
-    }
-
-    /**
-     * Master render controller for the active route and language.
-     */
-    function renderApp() {
-      updateHeaderState();
-      const container = document.getElementById('app-view');
-
-      switch (currentRoute) {
-        case 'projects':
-          container.innerHTML = renderProjectsPage();
-          break;
-        case 'experience':
-          container.innerHTML = renderExperiencePage();
-          break;
-        case 'education':
-          container.innerHTML = renderEducationPage();
-          break;
-        case 'contact':
-          container.innerHTML = renderContactPage();
-          break;
-        case 'overview':
-        default:
-          container.innerHTML = renderOverviewPage();
-          break;
-      }
-    }
-
-    /**
-     * Copies assembled email address safely without relying on blocked clipboard permissions.
-     */
-    function copyEmail() {
-      const textarea = document.createElement('textarea');
-      textarea.value = getAssembledEmail();
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast(DATA[currentLang].contactPage.copiedToast);
-      } catch (err) {
-        console.error('Copy failed', err);
-      }
-      document.body.removeChild(textarea);
-    }
-
-    let toastTimer;
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.remove('translate-y-3', 'opacity-0', 'pointer-events-none');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
-        toast.classList.add('translate-y-3', 'opacity-0', 'pointer-events-none');
-      }, 2200);
-    }
-
-    // Handle browser Back / Forward buttons
-    window.addEventListener('hashchange', () => {
-      currentRoute = getRouteFromHash();
-      renderApp();
-    });
-
-    // Initialize route and render on load
-    document.addEventListener('DOMContentLoaded', () => {
-      currentRoute = getRouteFromHash();
-      renderApp();
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
